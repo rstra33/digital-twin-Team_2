@@ -70,3 +70,5 @@ await index.query({
 ---
 
 **Note**: This file provides context for GitHub Copilot to generate accurate, project-specific code suggestions. Keep it updated as requirements evolve.
+## Contribution by Vishva Patel
+- Reviewed repository setup and added initial notes
