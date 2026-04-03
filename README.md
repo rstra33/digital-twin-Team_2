@@ -98,3 +98,5 @@ The main branch represents the final working version of this project.
 
 License
 This project was developed for educational purposes as part of the AusBiz Consulting Digital Twin workshop.
+## Contribution by Vishva Patel
+- Reviewed repository setup and added initial notes
