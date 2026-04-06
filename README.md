@@ -23,6 +23,17 @@ Retrieve — When an interview question is asked, the MCP server performs semant
 Generate — The LLM analyses the retrieved evidence and produces an accurate, first-person answer grounded in your real data.
 Report — After the full interview, a Markdown report is generated with transcript, evaluation, and a hire/no-hire recommendation.
 
+### Team Members
+
+| Name | Role |
+|---|---|
+| [Ranne Sanedrin] |
+| [Remi Strachan] |
+| [Vishva Patel] |
+| [Andrea Cuevas] |
+| [Alaine Krizia] |
+| [Rabib Islam] |
+| [Jose Pablo Du] |
 
 Repository Structure
 
