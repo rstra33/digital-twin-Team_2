@@ -55,7 +55,7 @@ digital-twin-Team_2/
 | [digitaltwin_rag.py](digitaltwin_rag.py) | Core pipeline — connects to Upstash Vector, performs semantic search, generates responses via Groq |
 | [digitaltwin.json](digitaltwin.json) | Your professional profile structured into embeddable content chunks |
 | [agents.md](agents.md) | Instructions defining how the AI interviewer should behave, evaluate, and report |
-| [prd.md](prd.md) | Product Requirements Document outlining scope, timeline, and success criteria |
+| [prd.md](docs/prd.md) | Product Requirements Document outlining scope, timeline, and success criteria |
 
 ### Tech Stack
 
