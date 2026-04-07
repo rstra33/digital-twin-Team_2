@@ -38,17 +38,16 @@ Report — After the full interview, a Markdown report is generated with transcr
 | Rabib Islam | [rabib773](https://github.com/rabib773) |
 | Jose Pablo Du | [jsepblo](https://github.com/jsepblo) |
 
-Repository Structure
-
+## Repository Structure
 ```
 digital-twin-Team_2/
-├── README.md                  ← You are here
+├── README.md                  ← Project documentation
 ├── agents.md                  ← Interview agent instructions and rules
 ├── docs/
 │   └── prd.md                 ← Product Requirements Document
 ├── digitaltwin.json           ← Structured professional profile data
 ├── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
-└── .env                       ← Environment variables (not committed)
+└── .gitignore                 ← Prevents secrets and sensitive files from being committed
 ```
 
 ### Key Files
