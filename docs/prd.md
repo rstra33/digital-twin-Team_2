@@ -10,15 +10,15 @@ This project delivers an AI-powered Digital Twin that conducts professional job 
 
 ## Team Members
 
-| Name |
-|---|
-| Ranne Sanedrin |
-| Remi Strachan |
-| Vishva Patel |
-| Andrea Cuevas |
-| Alaine Krizia |
-| Rabib Islam |
-| Jose Pablo Du |
+| Name | GitHub |
+|---|---|
+| Ranne Sanedrin | impulsifier |
+| Remi Strachan | rstra33 |
+| Vishva Patel | vishva-patel187 |
+| Andrea Cuevas | cuevasandrea676-bit |
+| Alaine Krizia | alainekrizia |
+| Rabib Islam | rabib773 |
+| Jose Pablo Du | jsepblo |
 
 ---
 
