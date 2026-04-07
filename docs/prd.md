@@ -15,14 +15,13 @@ grounded interview responses — never hallucinating or inventing information.
 
 | Name | GitHub |
 |---|---|
-| Ranne Sanedrin | impulsifier |
-| Remi Strachan | rstra33 |
-| Vishva Patel | vishva-patel187 |
-| Andrea Cuevas | cuevasandrea676-bit |
-| Alaine Krizia | alainekrizia |
-| Rabib Islam | rabib773 |
-| Jose Pablo Du | jsepblo |
-
+| Ranne Sanedrin | [impulsifier](https://github.com/impulsifier) |
+| Remi Strachan | [rstra33](https://github.com/rstra33) |
+| Vishva Patel | [vishva-patel187](https://github.com/vishva-patel187) |
+| Andrea Cuevas | [cuevasandrea676-bit](https://github.com/cuevasandrea676-bit) |
+| Alaine Krizia | [alainekrizia](https://github.com/alainekrizia) |
+| Rabib Islam | [rabib773](https://github.com/rabib773) |
+| Jose Pablo Du | [jsepblo](https://github.com/jsepblo) |
 ---
 
 ## Timeline
