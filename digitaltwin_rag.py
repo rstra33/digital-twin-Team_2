@@ -33,6 +33,259 @@ def setup_groq_client():
         print(f"❌ Error initializing Groq client: {str(e)}")
         return None
 
+def build_chunks_from_profile(profile_data):
+    """Convert structured profile JSON into content chunks for vector embedding"""
+    chunks = []
+    chunk_id = 1
+
+    # Personal summary
+    personal = profile_data.get('personal', {})
+    if personal:
+        summary_parts = []
+        if personal.get('name'):
+            summary_parts.append(f"Name: {personal['name']}")
+        if personal.get('title'):
+            summary_parts.append(f"Title: {personal['title']}")
+        if personal.get('location'):
+            summary_parts.append(f"Location: {personal['location']}")
+        if personal.get('summary'):
+            summary_parts.append(personal['summary'])
+        if personal.get('elevator_pitch'):
+            summary_parts.append(f"Elevator pitch: {personal['elevator_pitch']}")
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Personal Summary',
+            'type': 'personal',
+            'content': ' | '.join(summary_parts),
+            'category': 'overview',
+            'tags': ['personal', 'summary', 'overview']
+        })
+        chunk_id += 1
+
+    # Contact info
+    contact = personal.get('contact', {})
+    if contact:
+        contact_parts = [f"{k}: {v}" for k, v in contact.items() if v]
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Contact Information',
+            'type': 'personal',
+            'content': ' | '.join(contact_parts),
+            'category': 'contact',
+            'tags': ['contact']
+        })
+        chunk_id += 1
+
+    # Salary and location preferences
+    salary = profile_data.get('salary_location', {})
+    if salary:
+        sal_parts = [f"{k}: {v}" for k, v in salary.items() if v]
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Salary and Location Preferences',
+            'type': 'preferences',
+            'content': ' | '.join(str(p) for p in sal_parts),
+            'category': 'preferences',
+            'tags': ['salary', 'location', 'preferences']
+        })
+        chunk_id += 1
+
+    # Experience - one chunk per role
+    for exp in profile_data.get('experience', []):
+        exp_parts = []
+        exp_parts.append(f"{exp.get('title', '')} at {exp.get('company', '')}")
+        if exp.get('duration'):
+            exp_parts.append(f"Duration: {exp['duration']}")
+        if exp.get('company_context'):
+            exp_parts.append(f"Context: {exp['company_context']}")
+        if exp.get('team_structure'):
+            exp_parts.append(f"Team: {exp['team_structure']}")
+        for star in exp.get('achievements_star', []):
+            exp_parts.append(
+                f"Achievement — Situation: {star.get('situation', '')}. "
+                f"Task: {star.get('task', '')}. "
+                f"Action: {star.get('action', '')}. "
+                f"Result: {star.get('result', '')}"
+            )
+        if exp.get('technical_skills_used'):
+            exp_parts.append(f"Skills used: {', '.join(exp['technical_skills_used'])}")
+        if exp.get('leadership_examples'):
+            exp_parts.append(f"Leadership: {', '.join(exp['leadership_examples'])}")
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': f"Experience — {exp.get('title', '')} at {exp.get('company', '')}",
+            'type': 'experience',
+            'content': ' | '.join(exp_parts),
+            'category': 'experience',
+            'tags': ['experience', exp.get('company', '').lower()]
+        })
+        chunk_id += 1
+
+    # Technical skills
+    skills = profile_data.get('skills', {})
+    tech = skills.get('technical', {})
+    if tech:
+        tech_parts = []
+        for lang in tech.get('programming_languages', []):
+            tech_parts.append(
+                f"{lang['language']} ({lang.get('proficiency', '')}, {lang.get('years', '')} years)"
+            )
+        if tech.get('databases'):
+            tech_parts.append(f"Databases: {', '.join(tech['databases'])}")
+        if tech.get('cloud_platforms'):
+            tech_parts.append(f"Platforms: {', '.join(tech['cloud_platforms'])}")
+        if tech.get('ai_ml'):
+            tech_parts.append(f"AI/ML: {', '.join(tech['ai_ml'])}")
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Technical Skills',
+            'type': 'skills',
+            'content': ' | '.join(tech_parts),
+            'category': 'skills',
+            'tags': ['skills', 'technical']
+        })
+        chunk_id += 1
+
+    # Mathematical foundations
+    math_skills = skills.get('mathematical_foundations', [])
+    if math_skills:
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Mathematical Foundations',
+            'type': 'skills',
+            'content': ', '.join(math_skills),
+            'category': 'skills',
+            'tags': ['skills', 'mathematics']
+        })
+        chunk_id += 1
+
+    # Soft skills
+    soft = skills.get('soft_skills', [])
+    if soft:
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Soft Skills',
+            'type': 'skills',
+            'content': ', '.join(soft),
+            'category': 'skills',
+            'tags': ['skills', 'soft']
+        })
+        chunk_id += 1
+
+    # Education
+    edu = profile_data.get('education', {})
+    if edu:
+        edu_parts = []
+        edu_parts.append(f"{edu.get('degree', '')} at {edu.get('university', '')}")
+        if edu.get('major'):
+            edu_parts.append(f"Major: {edu['major']}")
+        if edu.get('minor'):
+            edu_parts.append(f"Minor: {edu['minor']}")
+        if edu.get('gpa'):
+            edu_parts.append(f"GPA: {edu['gpa']}")
+        if edu.get('status'):
+            edu_parts.append(f"Status: {edu['status']}")
+        if edu.get('relevant_coursework'):
+            edu_parts.append(f"Coursework: {', '.join(edu['relevant_coursework'])}")
+        if edu.get('awards'):
+            edu_parts.append(f"Awards: {', '.join(edu['awards'])}")
+        secondary = edu.get('secondary', {})
+        if secondary:
+            edu_parts.append(
+                f"Secondary: {secondary.get('school', '')} — ATAR {secondary.get('atar', '')}"
+            )
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Education',
+            'type': 'education',
+            'content': ' | '.join(edu_parts),
+            'category': 'education',
+            'tags': ['education', 'university', 'gpa']
+        })
+        chunk_id += 1
+
+    # Projects
+    for proj in profile_data.get('projects_portfolio', []):
+        proj_parts = [proj.get('name', ''), proj.get('description', '')]
+        if proj.get('technologies'):
+            proj_parts.append(f"Technologies: {', '.join(proj['technologies'])}")
+        if proj.get('impact'):
+            proj_parts.append(f"Impact: {proj['impact']}")
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': f"Project — {proj.get('name', '')}",
+            'type': 'project',
+            'content': ' | '.join(proj_parts),
+            'category': 'projects',
+            'tags': ['project']
+        })
+        chunk_id += 1
+
+    # Career goals
+    goals = profile_data.get('career_goals', {})
+    if goals:
+        goal_parts = []
+        if goals.get('short_term'):
+            goal_parts.append(f"Short-term: {goals['short_term']}")
+        if goals.get('long_term'):
+            goal_parts.append(f"Long-term: {goals['long_term']}")
+        if goals.get('learning_focus'):
+            goal_parts.append(f"Learning focus: {', '.join(goals['learning_focus'])}")
+        if goals.get('industries_interested'):
+            goal_parts.append(f"Industries: {', '.join(goals['industries_interested'])}")
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Career Goals',
+            'type': 'career',
+            'content': ' | '.join(goal_parts),
+            'category': 'career',
+            'tags': ['career', 'goals']
+        })
+        chunk_id += 1
+
+    # Professional development / Trading experience
+    dev = profile_data.get('professional_development', {})
+    if dev:
+        dev_parts = []
+        if dev.get('recent_learning'):
+            dev_parts.append(f"Recent learning: {', '.join(dev['recent_learning'])}")
+        trading = dev.get('trading_experience', {})
+        if trading:
+            dev_parts.append(
+                f"Trading: {trading.get('focus', '')} for {trading.get('duration', '')}. "
+                f"Experience: {', '.join(trading.get('experience_type', []))}. "
+                f"Skills: {', '.join(trading.get('skills_developed', []))}"
+            )
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Professional Development and Trading',
+            'type': 'development',
+            'content': ' | '.join(dev_parts),
+            'category': 'development',
+            'tags': ['development', 'trading', 'learning']
+        })
+        chunk_id += 1
+
+    # Interview prep - weakness mitigation
+    interview = profile_data.get('interview_prep', {})
+    weaknesses = interview.get('weakness_mitigation', [])
+    if weaknesses:
+        w_parts = []
+        for w in weaknesses:
+            w_parts.append(f"Weakness: {w.get('weakness', '')} — Mitigation: {w.get('mitigation', '')}")
+        chunks.append({
+            'id': f'chunk-{chunk_id}',
+            'title': 'Weakness Mitigation',
+            'type': 'interview',
+            'content': ' | '.join(w_parts),
+            'category': 'interview',
+            'tags': ['interview', 'weaknesses']
+        })
+        chunk_id += 1
+
+    return chunks
+
+
 def setup_vector_database():
     """Setup Upstash Vector database with built-in embeddings"""
     print("🔄 Setting up Upstash Vector database...")
@@ -49,7 +302,12 @@ def setup_vector_database():
         except:
             current_count = 0
         
-        # Load data if database is empty
+        # Reset database if it has stale data, then reload
+        if current_count > 0:
+            print("🔄 Resetting database to reload with correct profile data...")
+            index.reset()
+            current_count = 0
+        
         if current_count == 0:
             print("📝 Loading your professional profile...")
             
@@ -60,14 +318,15 @@ def setup_vector_database():
                 print(f"❌ {JSON_FILE} not found!")
                 return None
             
-            # Prepare vectors from content chunks
-            vectors = []
-            content_chunks = profile_data.get('content_chunks', [])
+            # Build chunks from the structured profile JSON
+            content_chunks = build_chunks_from_profile(profile_data)
             
             if not content_chunks:
-                print("❌ No content chunks found in profile data")
+                print("❌ No content chunks could be built from profile data")
                 return None
             
+            # Prepare vectors
+            vectors = []
             for chunk in content_chunks:
                 enriched_text = f"{chunk['title']}: {chunk['content']}"
                 
@@ -78,8 +337,8 @@ def setup_vector_database():
                         "title": chunk['title'],
                         "type": chunk['type'],
                         "content": chunk['content'],
-                        "category": chunk.get('metadata', {}).get('category', ''),
-                        "tags": chunk.get('metadata', {}).get('tags', [])
+                        "category": chunk.get('category', ''),
+                        "tags": chunk.get('tags', [])
                     }
                 ))
             
