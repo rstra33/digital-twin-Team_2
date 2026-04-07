@@ -2,7 +2,8 @@ Digital Twin — RAG-Powered Interview Agent
 An AI-powered Digital Twin that conducts professional job interviews on your behalf using Retrieval-Augmented Generation (RAG). The system stores your real professional profile in a vector database, retrieves relevant evidence via semantic search, and generates factual, grounded interview responses — never hallucinating or inventing information.
 Built as part of the AusBiz Consulting Digital Twin project (Team 2).
 
-How It Works
+## How It Works
+```
 Job Description ──→ Agentic LLM (Claude / Groq)
                         │
                         ├── Reads interview instructions (AGENTS.md)
@@ -17,6 +18,7 @@ Job Description ──→ Agentic LLM (Claude / Groq)
                         ├── Retrieves relevant evidence chunks
                         ├── Synthesises professional answers
                         └── Produces final hiring recommendation report
+```
 
 Embed — Your structured profile JSON is chunked, embedded, and stored in Upstash Vector.
 Retrieve — When an interview question is asked, the MCP server performs semantic search to find the most relevant profile chunks.
