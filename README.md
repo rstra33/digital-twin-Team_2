@@ -32,7 +32,7 @@ Report — After the full interview, a Markdown report is generated with transcr
 | [Vishva Patel] |
 | [Andrea Cuevas] |
 | [Alaine Krizia] |
-| [Rabib Islam] |
+| [Rabib ul Islam] |
 | [Jose Pablo Du] |
 
 Repository Structure
@@ -111,3 +111,5 @@ License
 This project was developed for educational purposes as part of the AusBiz Consulting Digital Twin workshop.
 ## Contribution by Vishva Patel
 - Reviewed repository setup and added initial notes
+## Contribution by Rabib Ul Islam
+- Joined project and set up GitHub branch
