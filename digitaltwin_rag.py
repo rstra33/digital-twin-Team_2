@@ -117,11 +117,7 @@ def build_chunks_from_profile(profile_data):
             'type': 'experience',
             'content': ' | '.join(exp_parts),
             'category': 'experience',
-<<<<<<< HEAD
-            'tags': ['experience', (exp.get('company') or '').lower()]
-=======
             'tags': ['experience', exp.get('company', '').lower()]
->>>>>>> 9a1038a1d33dcebb76b83c6c6625b2a29b8410ef
         })
         chunk_id += 1
 
@@ -131,16 +127,8 @@ def build_chunks_from_profile(profile_data):
     if tech:
         tech_parts = []
         for lang in tech.get('programming_languages', []):
-<<<<<<< HEAD
-            language = lang.get('language')
-            if not language:
-                continue
-            tech_parts.append(
-                f"{language} ({lang.get('proficiency', '')}, {lang.get('years', '')} years)"
-=======
             tech_parts.append(
                 f"{lang['language']} ({lang.get('proficiency', '')}, {lang.get('years', '')} years)"
->>>>>>> 9a1038a1d33dcebb76b83c6c6625b2a29b8410ef
             )
         if tech.get('databases'):
             tech_parts.append(f"Databases: {', '.join(tech['databases'])}")
@@ -315,20 +303,10 @@ def setup_vector_database():
             current_count = 0
         
         # Reset database if it has stale data, then reload
-<<<<<<< HEAD
-        reset_requested = os.getenv("RESET_UPSTASH_INDEX", "").strip().lower() in ("1", "true", "yes", "on")
-        if current_count > 0 and reset_requested:
-            print("🔄 Resetting database...")
-            index.reset()
-            current_count = 0
-        elif current_count > 0:
-            print("ℹ️ Existing vectors found. Set RESET_UPSTASH_INDEX=true to rebuild.")
-=======
         if current_count > 0:
             print("🔄 Resetting database to reload with correct profile data...")
             index.reset()
             current_count = 0
->>>>>>> 9a1038a1d33dcebb76b83c6c6625b2a29b8410ef
         
         if current_count == 0:
             print("📝 Loading your professional profile...")
