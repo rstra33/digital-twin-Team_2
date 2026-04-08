@@ -94,6 +94,9 @@ await index.query({
 })
 ```
 
+## Requirements Location
+- **Product Requirements Document**: [docs/prd.md](docs/prd.md)
+
 ## Additional Useful Resources
 - Add any other relevant documentation links as needed
 - Include specific API references for integrations
@@ -103,5 +106,60 @@ await index.query({
 ---
 
 **Note**: This file provides context for GitHub Copilot to generate accurate, project-specific code suggestions. Keep it updated as requirements evolve.
+
+
 ## Contribution by Vishva Patel
 - Reviewed repository setup and added initial notes
+
+
+
+## ARCHITECTURE (CONCEPTUAL):
+```
+ ┌────────────────────────────────────────────────────────────────┐
+ │                  Visual Studio Code (Agent Mode)               │
+ │                                                                │
+ │     ┌────────────────────────────────────────────────────┐     │
+ │     │ Agentic LLM (Claude Sonnet / Opus / Groq Fast)     │     │
+ │     │ - Reads job description + agent instructions       │     │
+ │     │ - Conducts interview autonomously                  │     │
+ │     │ - Decides when to retrieve information             │     │
+ │     │ - Generates structured answers + final report      │     │
+ │     └────────────────────────────────────────────────────┘     │
+ │                         ▲            │                         │
+ │                         │ Tool Call  │                         │
+ │                         │            ▼                         │
+ │     ┌────────────────────────────────────────────────────┐     │
+ │     │ MCP Retrieval Tool                                 │     │
+ │     │ - Accepts search queries from LLM                  │     │
+ │     │ - Converts query into embeddings                   │     │
+ │     │ - Queries vector database                          │     │
+ │     │ - Returns relevant facts for evidence              │     │
+ │     └────────────────────────────────────────────────────┘     │
+ │                                                                │
+ └────────────────────────────────────────────────────────────────┘
+                      │
+                      │ Vector Search
+                      ▼
+ ┌────────────────────────────────────────────────────────────────┐
+ │                     Vector Database (Upstash Vector)           │
+ │ - Stores all embedded profile chunks                           │
+ │ - Semantic similarity search                                   │
+ │ - Returns best matched documents                               │
+ └────────────────────────────────────────────────────────────────┘
+                      │
+                      │ Optional Data Storage
+                      ▼
+ ┌────────────────────────────────────────────────────────────────┐
+ │                  Relational Database (Neon Postgres)           │
+ │ - Stores interview transcripts                                 │
+ │ - Stores performance analytics                                 │
+ │ - Enables dashboards and insights                              │
+ └────────────────────────────────────────────────────────────────┘
+
+                 ┌──────────────────────────────────────┐
+                 │     Profile Data Preparation         │
+                 │  (Structured JSON, Chunked Content)  │
+                 │ - Your experience, skills, metrics   │
+                 │ - Stored locally (not in GitHub)     │
+                 └──────────────────────────────────────┘
+```
