@@ -114,7 +114,10 @@ await index.query({
 
 
 ## ARCHITECTURE (CONCEPTUAL):
+<<<<<<< HEAD
 ```
+=======
+>>>>>>> 9a1038a1d33dcebb76b83c6c6625b2a29b8410ef
  ┌────────────────────────────────────────────────────────────────┐
  │                  Visual Studio Code (Agent Mode)               │
  │                                                                │
@@ -141,19 +144,32 @@ await index.query({
                       │ Vector Search
                       ▼
  ┌────────────────────────────────────────────────────────────────┐
+<<<<<<< HEAD
  │                     Vector Database (Upstash Vector)           │
  │ - Stores all embedded profile chunks                           │
  │ - Semantic similarity search                                   │
  │ - Returns best matched documents                               │
+=======
+ │                     Vector Database (Upstash Vector)            │
+ │ - Stores all embedded profile chunks                            │
+ │ - Semantic similarity search                                    │
+ │ - Returns best matched documents                                │
+>>>>>>> 9a1038a1d33dcebb76b83c6c6625b2a29b8410ef
  └────────────────────────────────────────────────────────────────┘
                       │
                       │ Optional Data Storage
                       ▼
  ┌────────────────────────────────────────────────────────────────┐
  │                  Relational Database (Neon Postgres)           │
+<<<<<<< HEAD
  │ - Stores interview transcripts                                 │
  │ - Stores performance analytics                                 │
  │ - Enables dashboards and insights                              │
+=======
+ │ - Stores interview transcripts                                  │
+ │ - Stores performance analytics                                  │
+ │ - Enables dashboards and insights                               │
+>>>>>>> 9a1038a1d33dcebb76b83c6c6625b2a29b8410ef
  └────────────────────────────────────────────────────────────────┘
 
                  ┌──────────────────────────────────────┐
@@ -162,4 +178,8 @@ await index.query({
                  │ - Your experience, skills, metrics   │
                  │ - Stored locally (not in GitHub)     │
                  └──────────────────────────────────────┘
+<<<<<<< HEAD
 ```
+=======
+
+>>>>>>> 9a1038a1d33dcebb76b83c6c6625b2a29b8410ef
