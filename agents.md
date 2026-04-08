@@ -113,7 +113,9 @@ await index.query({
 
 
 
+
 ## ARCHITECTURE (CONCEPTUAL):
+```
  ┌────────────────────────────────────────────────────────────────┐
  │                  Visual Studio Code (Agent Mode)               │
  │                                                                │
@@ -140,19 +142,19 @@ await index.query({
                       │ Vector Search
                       ▼
  ┌────────────────────────────────────────────────────────────────┐
- │                     Vector Database (Upstash Vector)            │
- │ - Stores all embedded profile chunks                            │
- │ - Semantic similarity search                                    │
- │ - Returns best matched documents                                │
+ │                     Vector Database (Upstash Vector)           │
+ │ - Stores all embedded profile chunks                           │
+ │ - Semantic similarity search                                   │
+ │ - Returns best matched documents                               │
  └────────────────────────────────────────────────────────────────┘
                       │
                       │ Optional Data Storage
                       ▼
  ┌────────────────────────────────────────────────────────────────┐
  │                  Relational Database (Neon Postgres)           │
- │ - Stores interview transcripts                                  │
- │ - Stores performance analytics                                  │
- │ - Enables dashboards and insights                               │
+ │ - Stores interview transcripts                                 │
+ │ - Stores performance analytics                                 │
+ │ - Enables dashboards and insights                              │
  └────────────────────────────────────────────────────────────────┘
 
                  ┌──────────────────────────────────────┐
@@ -161,3 +163,4 @@ await index.query({
                  │ - Your experience, skills, metrics   │
                  │ - Stored locally (not in GitHub)     │
                  └──────────────────────────────────────┘
+```
