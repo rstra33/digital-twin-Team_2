@@ -161,4 +161,3 @@ await index.query({
                  │ - Your experience, skills, metrics   │
                  │ - Stored locally (not in GitHub)     │
                  └──────────────────────────────────────┘
-
