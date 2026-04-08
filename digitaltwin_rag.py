@@ -15,7 +15,7 @@ from groq import Groq
 load_dotenv()
 
 # Constants
-JSON_FILE = "digitaltwin.json"  #INSERT YOUR OWN JSON FILE HERE
+JSON_FILE = "digitaltwin.json"
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 DEFAULT_MODEL = "llama-3.1-8b-instant"
 
