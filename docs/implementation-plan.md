@@ -8,7 +8,7 @@
 
 This document outlines the implementation roadmap for the Digital Twin RAG Interview Agent system. The plan breaks down work into 5 major phases, tracks dependencies, assigns responsibilities, and provides a checklist for tracking progress.
 
-> **Architecture note:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) is the orchestrator. It reads job descriptions, generates interview questions, calls the MCP `semantic_search` tool, synthesises answers, and produces the final report autonomously. We do **not** build a separate Python orchestrator or report generator — our deliverable is the MCP server, the vector data pipeline, and the agent instructions (`AGENTS.md`).
+> **Architecture note:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) is the orchestrator. It reads job descriptions, generates interview questions, calls the MCP `semantic_search` tool, synthesises answers, and produces the final report autonomously. We do **not** build a separate Python orchestrator or report generator — our deliverable is the MCP server, the vector data pipeline, and the agent instructions (`agents.md`).
 
 ---
 
