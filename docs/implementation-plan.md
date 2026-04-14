@@ -76,10 +76,10 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - Handle connection errors gracefully
 - [ ] Refactor existing vector upload pipeline
   - Upload chunked profile data with metadata
-  - Store embeddings with similarity scores
+  - Store embeddings alongside metadata required for retrieval
 - [ ] Refactor existing search function (`query_vectors()`) for use by MCP server
   - Query top-k relevant chunks by similarity
-  - Return results with metadata (title, content, score, category)
+  - Return results with metadata (title, content, score, category) and validate that query responses include similarity scores
 - [ ] Preserve existing RESET_UPSTASH_INDEX logic for database resets
 - [ ] Create unit tests for Upstash operations
 
