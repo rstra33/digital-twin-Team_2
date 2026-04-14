@@ -15,7 +15,7 @@ from groq import Groq
 load_dotenv()
 
 # Constants
-JSON_FILE = "digitaltwin.json"  #INSERT YOUR OWN JSON FILE HERE
+JSON_FILE = "digitaltwin.json"
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 DEFAULT_MODEL = "llama-3.1-8b-instant"
 
@@ -117,7 +117,7 @@ def build_chunks_from_profile(profile_data):
             'type': 'experience',
             'content': ' | '.join(exp_parts),
             'category': 'experience',
-            'tags': ['experience', exp.get('company', '').lower()]
+            'tags': ['experience', (exp.get('company') or '').lower()]
         })
         chunk_id += 1
 
@@ -127,8 +127,11 @@ def build_chunks_from_profile(profile_data):
     if tech:
         tech_parts = []
         for lang in tech.get('programming_languages', []):
+            language = lang.get('language')
+            if not language:
+                continue
             tech_parts.append(
-                f"{lang['language']} ({lang.get('proficiency', '')}, {lang.get('years', '')} years)"
+                f"{language} ({lang.get('proficiency', '')}, {lang.get('years', '')} years)"
             )
         if tech.get('databases'):
             tech_parts.append(f"Databases: {', '.join(tech['databases'])}")
@@ -303,10 +306,13 @@ def setup_vector_database():
             current_count = 0
         
         # Reset database if it has stale data, then reload
-        if current_count > 0:
-            print("🔄 Resetting database to reload with correct profile data...")
+        reset_requested = os.getenv("RESET_UPSTASH_INDEX", "").strip().lower() in ("1", "true", "yes", "on")
+        if current_count > 0 and reset_requested:
+            print("🔄 Resetting database...")
             index.reset()
             current_count = 0
+        elif current_count > 0:
+            print("ℹ️ Existing vectors found. Set RESET_UPSTASH_INDEX=true to rebuild.")
         
         if current_count == 0:
             print("📝 Loading your professional profile...")

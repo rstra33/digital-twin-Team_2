@@ -2,7 +2,8 @@ Digital Twin — RAG-Powered Interview Agent
 An AI-powered Digital Twin that conducts professional job interviews on your behalf using Retrieval-Augmented Generation (RAG). The system stores your real professional profile in a vector database, retrieves relevant evidence via semantic search, and generates factual, grounded interview responses — never hallucinating or inventing information.
 Built as part of the AusBiz Consulting Digital Twin project (Team 2).
 
-How It Works
+## How It Works
+```
 Job Description ──→ Agentic LLM (Claude / Groq)
                         │
                         ├── Reads interview instructions (AGENTS.md)
@@ -17,35 +18,36 @@ Job Description ──→ Agentic LLM (Claude / Groq)
                         ├── Retrieves relevant evidence chunks
                         ├── Synthesises professional answers
                         └── Produces final hiring recommendation report
+```
 
 Embed — Your structured profile JSON is chunked, embedded, and stored in Upstash Vector.
 Retrieve — When an interview question is asked, the MCP server performs semantic search to find the most relevant profile chunks.
 Generate — The LLM analyses the retrieved evidence and produces an accurate, first-person answer grounded in your real data.
 Report — After the full interview, a Markdown report is generated with transcript, evaluation, and a hire/no-hire recommendation.
 
+
 ### Team Members
 
-| Name | Role |
+| Name | GitHub |
 |---|---|
-| [Ranne Sanedrin] |
-| [Remi Strachan] |
-| [Vishva Patel] |
-| [Andrea Cuevas] |
-| [Alaine Krizia] |
-| [Rabib Islam] |
-| [Jose Pablo Du] |
+| Ranne Sanedrin | [impulsifier](https://github.com/impulsifier) |
+| Remi Strachan | [rstra33](https://github.com/rstra33) |
+| Vishva Patel | [vishva-patel187](https://github.com/vishva-patel187) |
+| Andrea Cuevas | [cuevasandrea676-bit](https://github.com/cuevasandrea676-bit) |
+| Alaine Krizia | [alainekrizia](https://github.com/alainekrizia) |
+| Rabib Islam | [rabib773](https://github.com/rabib773) |
+| Jose Pablo Du | [jsepblo](https://github.com/jsepblo) |
 
-Repository Structure
-
+### Repository Structure
 ```
 digital-twin-Team_2/
-├── README.md                  ← You are here
-├── agents.md                  ← Interview agent instructions and rules
 ├── docs/
 │   └── prd.md                 ← Product Requirements Document
+├── .gitignore                 ← Prevents secrets and sensitive files from being committed
+├── README.md                  ← Project documentation
+├── agents.md                  ← Interview agent instructions and rules
 ├── digitaltwin.json           ← Structured professional profile data
-├── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
-└── .env                       ← Environment variables (not committed)
+└── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
 ```
 
 ### Key Files
@@ -111,3 +113,6 @@ License
 This project was developed for educational purposes as part of the AusBiz Consulting Digital Twin workshop.
 ## Contribution by Vishva Patel
 - Reviewed repository setup and added initial notes
+## Contribution by Rabib Ul Islam
+- Joined project and set up GitHub branch
+- Latest commit: README update 

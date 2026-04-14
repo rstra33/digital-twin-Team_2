@@ -3,12 +3,45 @@
 ## Project Overview
 Build an MCP server using the roll dice pattern to create a digital twin assistant that can answer questions about a person's professional profile using RAG (Retrieval-Augmented Generation).
 
+## Tech Stack
+- **Language**: Python 3.10+
+- **Vector Database**: Upstash Vector (REST API via SDK)
+- **LLM Provider**: Groq with LLaMA model
+- **MCP Protocol**: Model Context Protocol for tool-calling
+- **Data Format**: JSON (structured professional profiles)
+- **Package Manager**: pip
+
+## Architecture & Code Structure
+The Digital Twin consists of:
+- `digitaltwin.json` — Structured professional profile data (name, experience, skills, etc.)
+- `digitaltwin_rag.py` — Core RAG application (main entry point)
+- `agents.md` — This file; AI agent instructions and behaviour rules
+### How It Works
+1. Profile data from `digitaltwin.json` is chunked and embedded
+2. Embeddings are stored in Upstash Vector database
+3. When an interview question is asked, semantic search retrieves relevant profile chunks
+4. Groq LLaMA synthesises professional answers using retrieved evidence
+5. MCP tools handle the vector search and LLM calls
+6. Final output: Markdown hiring recommendation report
+
 ## Reference Repositories
 - **Pattern Reference**: https://github.com/gocallum/rolldice-mcpserver.git
   - Roll dice MCP server - use same technology and pattern for our MCP server
 - **Logic Reference**: https://github.com/gocallum/binal_digital-twin_py.git
   - Python code using Upstash Vector for RAG search with Groq and LLaMA for generations
 
+## References & Documentation
+### MCP & Vector Search
+- **MCP Protocol**: https://modelcontextprotocol.io/introduction
+- **Pattern Reference**: https://github.com/gocallum/rolldice-mcpserver.git
+- **Logic Reference**: https://github.com/gocallum/binal_digital-twin_py.git
+
+### Core Technologies
+- **Upstash Vector**: https://upstash.com/docs/vector/overall/getstarted
+- **Groq API**: https://console.groq.com/docs/openai
+- **LangChain RAG**: https://python.langchain.com/docs/tutorials/rag/
+- **Anthropic Claude**: https://docs.anthropic.com
+ 
 ## Core Functionality
 - MCP server accepts user questions about the person's professional background
 - Create server actions that search Upstash Vector database and return RAG results
@@ -80,7 +113,9 @@ await index.query({
 
 
 
+
 ## ARCHITECTURE (CONCEPTUAL):
+```
  ┌────────────────────────────────────────────────────────────────┐
  │                  Visual Studio Code (Agent Mode)               │
  │                                                                │
@@ -107,19 +142,19 @@ await index.query({
                       │ Vector Search
                       ▼
  ┌────────────────────────────────────────────────────────────────┐
- │                     Vector Database (Upstash Vector)            │
- │ - Stores all embedded profile chunks                            │
- │ - Semantic similarity search                                    │
- │ - Returns best matched documents                                │
+ │                     Vector Database (Upstash Vector)           │
+ │ - Stores all embedded profile chunks                           │
+ │ - Semantic similarity search                                   │
+ │ - Returns best matched documents                               │
  └────────────────────────────────────────────────────────────────┘
                       │
                       │ Optional Data Storage
                       ▼
  ┌────────────────────────────────────────────────────────────────┐
  │                  Relational Database (Neon Postgres)           │
- │ - Stores interview transcripts                                  │
- │ - Stores performance analytics                                  │
- │ - Enables dashboards and insights                               │
+ │ - Stores interview transcripts                                 │
+ │ - Stores performance analytics                                 │
+ │ - Enables dashboards and insights                              │
  └────────────────────────────────────────────────────────────────┘
 
                  ┌──────────────────────────────────────┐
@@ -128,4 +163,4 @@ await index.query({
                  │ - Your experience, skills, metrics   │
                  │ - Stored locally (not in GitHub)     │
                  └──────────────────────────────────────┘
-
+```
