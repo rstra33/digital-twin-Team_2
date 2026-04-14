@@ -21,7 +21,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - `UPSTASH_VECTOR_REST_URL`
   - `UPSTASH_VECTOR_REST_TOKEN`
   - `RESET_UPSTASH_INDEX`
-- [ ] Verify `.gitignore` excludes `.env*` files (already excludes `.env`)
+- [ ] Verify `.gitignore` excludes `.env` and decide whether to add common local variants (for example, `.env.local` / `.env.*`)
 - [ ] Update existing `README.md` with environment variable documentation (Setup section)
 - [ ] Verify all team members can access required APIs
 
