@@ -8,7 +8,7 @@
 
 This document outlines the implementation roadmap for the Digital Twin RAG Interview Agent system. The plan breaks down work into 5 major phases, tracks dependencies, assigns responsibilities, and provides a checklist for tracking progress.
 
-> **Architecture note:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) is the orchestrator. It reads job descriptions, generates interview questions, calls the MCP `semantic_search` tool, synthesises answers, and produces the final report autonomously. We do **not** build a separate Python orchestrator or report generator — our deliverable is the MCP server, the vector data pipeline, and the agent instructions (`agents.md`).
+> **Architecture note:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) is the orchestrator. It reads job descriptions, generates interview questions, calls the MCP `semantic_search` tool, synthesises answers, and produces the final report autonomously. We do **not** build a separate Python orchestrator or report generator — our deliverable is the MCP server, the vector data pipeline, and the agent instructions (`AGENTS.md`).
 
 ---
 
@@ -21,7 +21,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - `UPSTASH_VECTOR_REST_URL`
   - `UPSTASH_VECTOR_REST_TOKEN`
   - `RESET_UPSTASH_INDEX`
-- [ ] Verify `.gitignore` excludes `.env` and decide whether to add common local variants (for example, `.env.local` / `.env.*`)
+- [ ] Verify `.gitignore` excludes `.env*` files (already excludes `.env`)
 - [ ] Update existing `README.md` with environment variable documentation (Setup section)
 - [ ] Verify all team members can access required APIs
 
@@ -36,6 +36,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - `mcp-server/` (MCP tool server)
   - `jobs/` (job description files)
   - `tests/` (unit tests)
+  - `.venv/` (Python virtual environment)
 - [ ] Initialize `requirements.txt` with dependencies:
   ```
   python-dotenv>=1.0.0
@@ -76,10 +77,10 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - Handle connection errors gracefully
 - [ ] Refactor existing vector upload pipeline
   - Upload chunked profile data with metadata
-  - Store embeddings alongside metadata required for retrieval
+  - Store embeddings with similarity scores
 - [ ] Refactor existing search function (`query_vectors()`) for use by MCP server
   - Query top-k relevant chunks by similarity
-  - Return results with metadata (title, content, score, category) and validate that query responses include similarity scores
+  - Return results with metadata (title, content, score, category)
 - [ ] Preserve existing RESET_UPSTASH_INDEX logic for database resets
 - [ ] Create unit tests for Upstash operations
 
