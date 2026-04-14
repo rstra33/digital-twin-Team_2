@@ -36,7 +36,6 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - `mcp-server/` (MCP tool server)
   - `jobs/` (job description files)
   - `tests/` (unit tests)
-  - `.venv/` (Python virtual environment)
 - [ ] Initialize `requirements.txt` with dependencies:
   ```
   python-dotenv>=1.0.0
