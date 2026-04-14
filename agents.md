@@ -21,6 +21,8 @@ The Digital Twin consists of:
 - `jobs/` — Job description files the agent reads to generate interview questions
 - `interview/` — Stored interview transcripts and reports
 - `docs/prd.md` — Product Requirements Document
+- `docs/design.md` — System design and architecture diagrams
+- `docs/implementation-plan.md` — Step-by-step implementation plan and milestones
 
 ### How It Works
 1. Profile data from `digitaltwin.json` is chunked and embedded
