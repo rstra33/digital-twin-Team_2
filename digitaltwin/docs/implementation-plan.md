@@ -1,6 +1,6 @@
 # Implementation Plan — Digital Twin RAG Interview Agent
 
-**Status:** Approved | **Version:** 1.1 | **Last Updated:** April 9, 2026
+**Status:** Approved | **Version:** 1.2 | **Last Updated:** April 15, 2026
 
 ---
 
@@ -8,7 +8,7 @@
 
 This document outlines the implementation roadmap for the Digital Twin RAG Interview Agent system. The plan breaks down work into 5 major phases, tracks dependencies, assigns responsibilities, and provides a checklist for tracking progress.
 
-> **Architecture note:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) is the orchestrator. It reads job descriptions, generates interview questions, calls the MCP `semantic_search` tool, synthesises answers, and produces the final report autonomously. We do **not** build a separate Python orchestrator or report generator — our deliverable is the MCP server, the vector data pipeline, and the agent instructions (`AGENTS.md`).
+> **Architecture note:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) is the orchestrator. It reads job descriptions, generates interview questions, calls the MCP `semantic_search` tool, synthesises answers, and produces the final report autonomously. We do **not** build a separate Python orchestrator or report generator — our deliverable is the MCP server, the vector data pipeline, and the agent instructions (`agents.md`).
 
 ---
 
@@ -21,7 +21,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - `UPSTASH_VECTOR_REST_URL`
   - `UPSTASH_VECTOR_REST_TOKEN`
   - `RESET_UPSTASH_INDEX`
-- [ ] Verify `.gitignore` excludes `.env*` files (already excludes `.env`)
+- [ ] Verify `.gitignore` excludes `.env` and decide whether to add common local variants (for example, `.env.local` / `.env.*`)
 - [ ] Update existing `README.md` with environment variable documentation (Setup section)
 - [ ] Verify all team members can access required APIs
 
@@ -30,21 +30,24 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 
 ---
 
-### 1.2 Python Project Structure
+### 1.2 Project Structure
 
 - [ ] Create directory structure:
-  - `mcp-server/` (MCP tool server)
+  - `app/api/mcp/` (Next.js MCP server API route)
   - `jobs/` (job description files)
+  - `interview/` (interview transcripts and reports)
   - `tests/` (unit tests)
-  - `.venv/` (Python virtual environment)
-- [ ] Initialize `requirements.txt` with dependencies:
+- [ ] Initialize `requirements.txt` with Python dependencies:
   ```
   python-dotenv>=1.0.0
   upstash-vector>=0.5.0
   groq>=0.4.0
-  mcp>=1.0.0
   ```
-- [ ] Verify virtual environment and install dependencies
+- [ ] Initialize Next.js project with pnpm and install dependencies:
+  ```bash
+  pnpm install
+  ```
+- [ ] Verify virtual environment and install Python dependencies
 
 **Dependencies:** Section 1.1
 **Estimated Effort:** 1 hour
@@ -77,10 +80,10 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - Handle connection errors gracefully
 - [ ] Refactor existing vector upload pipeline
   - Upload chunked profile data with metadata
-  - Store embeddings with similarity scores
+  - Store embeddings alongside metadata required for retrieval
 - [ ] Refactor existing search function (`query_vectors()`) for use by MCP server
   - Query top-k relevant chunks by similarity
-  - Return results with metadata (title, content, score, category)
+  - Return results with metadata (title, content, score, category) and validate that query responses include similarity scores
 - [ ] Preserve existing RESET_UPSTASH_INDEX logic for database resets
 - [ ] Create unit tests for Upstash operations
 
@@ -93,12 +96,12 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 
 ### 2.1 MCP Server Skeleton
 
-> **Library:** Use the Python `mcp` SDK (Model Context Protocol). Follow the same pattern as the [rolldice MCP server reference](https://github.com/gocallum/rolldice-mcpserver.git) specified in `agents.md`.
+> **Library:** Use the Upstash Vector TypeScript SDK via a Next.js API route. Follow the same pattern as the [rolldice MCP server reference](https://github.com/gocallum/rolldice-mcpserver.git) specified in `agents.md`. The MCP server uses Streamable HTTP transport (JSON-RPC 2.0) at `/api/mcp`.
 
-- [ ] Implement `mcp-server/server.py` using the `mcp` Python SDK
+- [ ] Implement `app/api/mcp/route.ts` as a Next.js API route
   - Initialize MCP server with tool registry
   - Define `semantic_search` tool schema (input: `query` string + optional `top_k` int, output: array of chunks)
-  - Wire tool to the refactored Upstash query function from Phase 1.4
+  - Wire tool to Upstash Vector query using the TypeScript SDK
 - [ ] Set up tool input validation
 - [ ] Add error handling & logging
 - [ ] Write integration tests for MCP tool
@@ -124,8 +127,9 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 
 ### 2.3 Local MCP Server Testing
 
-- [ ] Set up local server startup & shutdown scripts
-- [ ] Test MCP tool availability from VS Code Agent Mode
+- [ ] Verify `pnpm dev` starts the Next.js server at `http://localhost:3000`
+- [ ] Verify MCP endpoint responds at `http://localhost:3000/api/mcp`
+- [ ] Test MCP tool availability from VS Code Agent Mode via `mcp.json` configuration
 - [ ] Verify error handling (missing API keys, connection failures)
 - [ ] Document how to run server locally in `README.md` (Local Setup section)
 
@@ -256,7 +260,7 @@ Phase 1 (Week 5–6)
 └── 1.4 (Vector DB — refactor existing) → depends on 1.3
 
 Phase 2 (Week 6–7)
-├── 2.1 (MCP Server — mcp SDK) → depends on 1.4
+├── 2.1 (MCP Server — Next.js API route) → depends on 1.4
 ├── 2.2 (Search Tool Integration) → depends on 2.1
 └── 2.3 (Local Testing) → depends on 2.2
 
@@ -280,7 +284,7 @@ Phase 5 (Week 9)
 | Component | Owner | Backup |
 |---|---|---|
 | 1.1 Environment Setup | Remi Strachan | Ranne Sanedrin |
-| 1.2 Python Structure | Ranne Sanedrin | Remi Strachan |
+| 1.2 Project Structure | Ranne Sanedrin | Remi Strachan |
 | 1.3 Chunking Pipeline (refactor) | Vishva Patel | Andrea Cuevas |
 | 1.4 Vector DB (refactor) | Andrea Cuevas | Vishva Patel |
 | 2.1 MCP Server | Alaine Krizia | Rabib Islam |
@@ -368,6 +372,7 @@ Phase 5 (Week 9)
 |---|---|---|---|
 | 1.0 | AI-Generated | Apr 9, 2026 | Initial implementation plan from design.md |
 | 1.1 | AI-Revised | Apr 9, 2026 | Fixed PRD alignment: removed Python orchestrator/report generator (LLM handles via AGENTS.md), scoped Phase 1.3/1.4 as refactors, added MCP SDK dependency, mapped roles to team members, added git workflow section, aligned timeline to PRD Weeks 5–9, consolidated documentation into README.md, reconciled JSON schema keys |
+| 1.2 | Remi Strachan | Apr 15, 2026 | Updated for Next.js MCP server architecture: renamed Section 1.2 from Python to Project Structure, updated MCP server from Python mcp SDK to Next.js API route, added pnpm/Node.js dependencies, updated file references and appendix |
 
 ---
 
@@ -377,11 +382,14 @@ Phase 5 (Week 9)
 |---|---|
 | `digitaltwin.json` | Source profile data — template already exists (each member populates their own) |
 | `digitaltwin_rag.py` | Existing RAG pipeline (to refactor into modules) |
-| `mcp-server/server.py` | MCP tool server using `mcp` SDK (new) |
+| `app/api/mcp/route.ts` | MCP tool server as Next.js API route (new) |
+| `mcp.json` | MCP server configuration for VS Code Agent Mode |
 | `agents.md` | Agent behavior instructions — already exists, to be extended with interview logic |
 | `jobs/example-role.md` | Sample job description (new) |
+| `interview/` | Stored interview transcripts and reports |
 | `.env` | Environment variables — create locally, not in git |
 | `.gitignore` | Already exists, already excludes `.env` |
+| `package.json` | Node.js dependencies (pnpm) |
 | `docs/prd.md` | Product Requirements Document |
 | `docs/design.md` | Technical Design Document |
 | `docs/implementation-plan.md` | This document |
