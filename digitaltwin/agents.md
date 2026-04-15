@@ -4,12 +4,13 @@
 Build an MCP server using the roll dice pattern to create a digital twin assistant that can answer questions about a person's professional profile using RAG (Retrieval-Augmented Generation).
 
 ## Tech Stack
-- **Language**: Python 3.10+
+- **Languages**: Python 3.10+ (RAG pipeline) + TypeScript (MCP server)
+- **MCP Server Framework**: Next.js 15.5.3+ (API route at `/api/mcp`)
 - **Vector Database**: Upstash Vector (REST API via SDK)
 - **LLM Provider**: Groq with LLaMA model
 - **MCP Protocol**: Model Context Protocol for tool-calling
 - **Data Format**: JSON (structured professional profiles)
-- **Package Manager**: pip
+- **Package Manager**: pnpm (Node.js) + pip (Python)
 
 ## Architecture & Code Structure
 The Digital Twin consists of:
@@ -17,7 +18,7 @@ The Digital Twin consists of:
 - `digitaltwin_rag.py` — Core RAG application: chunking, embedding, vector search, Groq LLM generation
 - `agents.md` — This file; AI agent instructions and behaviour rules
 - `mcp.json` — MCP server configuration for VS Code Agent Mode
-- `src/mcp-server/` — MCP server implementation (Next.js API route)
+- `app/api/mcp/` — MCP server implementation (Next.js API route)
 - `jobs/` — Job description files the agent reads to generate interview questions
 - `interview/` — Stored interview transcripts and reports
 - `docs/prd.md` — Product Requirements Document
@@ -95,9 +96,30 @@ RESET_UPSTASH_INDEX= true or false
 
 ## Setup Commands
 ```bash
-pnpm dlx shadcn@latest init
+pnpm install          # Install Node.js dependencies
+pnpm dev              # Start Next.js dev server (MCP endpoint at http://localhost:3000/api/mcp)
+pnpm test             # Run tests
+pnpm dlx shadcn@latest init   # Initialize ShadCN UI (one-time setup)
 ```
 Reference: https://ui.shadcn.com/docs/installation/next
+
+## MCP Client Configuration
+VS Code Agent Mode connects to the MCP server via `mcp.json` in the project root:
+```json
+{
+  "servers": {
+    "digital-twin-mcp": {
+      "type": "http",
+      "url": "http://localhost:3000/api/mcp",
+      "timeout": 30000
+    }
+  }
+}
+```
+**To test locally:**
+1. Start the dev server: `pnpm dev`
+2. VS Code Agent Mode automatically reads `mcp.json` and discovers MCP tools
+3. The `semantic_search` tool becomes available for the agent to call
 
 ## Upstash Vector Integration
 
@@ -125,11 +147,6 @@ await index.query({
 
 ## Requirements Location
 - **Product Requirements Document**: [docs/prd.md](docs/prd.md)
-
-### MCP Server Endpoint
-- **URL**: `http://localhost:3000/api/mcp` (defined in `mcp.json`)
-- **Protocol**: JSON-RPC 2.0 over HTTP (MCP Streamable HTTP transport)
-- **Timeout**: 30,000ms
 
 ## Additional Useful Resources
 - Add any other relevant documentation links as needed
@@ -185,8 +202,8 @@ await index.query({
                       │ Optional Data Storage
                       ▼
  ┌────────────────────────────────────────────────────────────────┐
- │                  Relational Database (Neon Postgres)           │
- │ - Stores interview transcripts                                 │
+ │          Relational Database (Neon Postgres) [FUTURE]          │
+ │ - Stores interview transcripts (currently saved to /interview) │
  │ - Stores performance analytics                                 │
  │ - Enables dashboards and insights                              │
  └────────────────────────────────────────────────────────────────┘
