@@ -41,28 +41,30 @@ Report — After the full interview, a Markdown report is generated with transcr
 ### Repository Structure
 ```
 digital-twin-Team_2/
-└── digitaltwin/
-    ├── app/                       ← Next.js app directory
-    │   ├── globals.css
-    │   ├── layout.tsx
-    │   └── page.tsx
-    ├── docs/
-    │   ├── prd.md                 ← Product Requirements Document
-    │   ├── design.md              ← Technical Design Document
-    │   └── implementation-plan.md ← Implementation plan
-    ├── interview/                 ← Stored interview transcripts and reports
-    ├── jobs/                      ← Job description files
-    ├── public/                    ← Next.js static assets
-    ├── .env                       ← Environment variables (not committed)
-    ├── .gitignore                 ← Prevents secrets and sensitive files from being committed
-    ├── agents.md                  ← Interview agent instructions and rules
-    ├── digitaltwin.json           ← Structured professional profile data
-    ├── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
-    ├── mcp.json                   ← MCP server configuration
-    ├── package.json               ← Node.js dependencies (pnpm)
-    ├── next.config.ts             ← Next.js configuration
-    ├── tsconfig.json              ← TypeScript configuration
-    └── README.md                  ← Project documentation
+├── digitaltwin/
+│   ├── .vscode/
+│   │   └── mcp.json               ← VS Code MCP client configuration
+│   ├── app/                       ← Next.js app directory
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── docs/
+│   │   ├── prd.md                 ← Product Requirements Document
+│   │   ├── design.md              ← Technical Design Document
+│   │   └── implementation-plan.md ← Implementation plan
+│   ├── interview/                 ← Stored interview transcripts and reports
+│   ├── jobs/                      ← Job description files
+│   ├── public/                    ← Next.js static assets
+│   ├── .gitignore                 ← Prevents secrets and sensitive files from being committed
+│   ├── agents.md                  ← Interview agent instructions and rules
+│   ├── digitaltwin.json           ← Structured professional profile data
+│   ├── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
+│   ├── mcp.json                   ← MCP server configuration
+│   ├── next.config.ts             ← Next.js configuration
+│   ├── package.json               ← Node.js dependencies (pnpm)
+│   ├── tsconfig.json              ← TypeScript configuration
+│   └── README.md                  ← Project documentation
+└── .gitignore                     ← Root gitignore
 ```
 
 ### Key Files
@@ -145,8 +147,3 @@ The main branch represents the final working version of this project.
 
 License
 This project was developed for educational purposes as part of the AusBiz Consulting Digital Twin workshop.
-## Contribution by Vishva Patel
-- Reviewed repository setup and added initial notes
-## Contribution by Rabib Ul Islam
-- Joined project and set up GitHub branch
-- Latest commit: README update 
