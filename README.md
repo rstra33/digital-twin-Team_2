@@ -41,41 +41,44 @@ Report — After the full interview, a Markdown report is generated with transcr
 ### Repository Structure
 ```
 digital-twin-Team_2/
-└── digitaltwin/
-    ├── app/                       ← Next.js app directory
-    │   ├── globals.css
-    │   ├── layout.tsx
-    │   └── page.tsx
-    ├── docs/
-    │   ├── prd.md                 ← Product Requirements Document
-    │   ├── design.md              ← Technical Design Document
-    │   └── implementation-plan.md ← Implementation plan
-    ├── interview/                 ← Stored interview transcripts and reports
-    ├── jobs/                      ← Job description files
-    ├── public/                    ← Next.js static assets
-    ├── .env                       ← Environment variables (not committed)
-    ├── .gitignore                 ← Prevents secrets and sensitive files from being committed
-    ├── agents.md                  ← Interview agent instructions and rules
-    ├── digitaltwin.json           ← Structured professional profile data
-    ├── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
-    ├── mcp.json                   ← MCP server configuration
-    ├── package.json               ← Node.js dependencies (pnpm)
-    ├── next.config.ts             ← Next.js configuration
-    ├── tsconfig.json              ← TypeScript configuration
-    └── README.md                  ← Project documentation
+├── digitaltwin/
+│   ├── app/                       ← Next.js app directory
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── docs/
+│   │   ├── prd.md                 ← Product Requirements Document
+│   │   ├── design.md              ← Technical Design Document
+│   │   └── implementation-plan.md ← Implementation plan
+│   ├── interview/                 ← Stored interview transcripts and reports
+│   ├── jobs/                      ← Job description files
+│   ├── public/                    ← Next.js static assets
+│   ├── .gitignore                 ← Prevents secrets and sensitive files from being committed
+│   ├── agents.md                  ← Interview agent instructions and rules
+│   ├── digitaltwin.json           ← Structured professional profile data
+│   ├── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
+│   ├── mcp.json                   ← MCP server configuration
+│   ├── next.config.ts             ← Next.js configuration
+│   ├── next-env.d.ts              ← Next.js TypeScript declarations
+│   ├── package.json               ← Node.js dependencies (pnpm)
+│   ├── postcss.config.mjs         ← PostCSS configuration
+│   ├── tsconfig.json              ← TypeScript configuration
+│   ├── eslint.config.mjs          ← ESLint configuration
+│   └── README.md                  ← Project documentation
+└── .gitignore                     ← Root gitignore
 ```
 
 ### Key Files
 
 | File | Purpose |
 |---|---|
-| [digitaltwin_rag.py](digitaltwin_rag.py) | Core pipeline — connects to Upstash Vector, performs semantic search, generates responses via Groq |
-| [digitaltwin.json](digitaltwin.json) | Your professional profile structured into embeddable content chunks |
-| [agents.md](agents.md) | Instructions defining how the AI interviewer should behave, evaluate, and report |
-| [mcp.json](mcp.json) | MCP server configuration for VS Code Agent Mode |
-| [prd.md](docs/prd.md) | Product Requirements Document outlining scope, timeline, and success criteria |
-| [design.md](docs/design.md) | Technical Design Document |
-| [implementation-plan.md](docs/implementation-plan.md) | Implementation plan and milestones |
+| [digitaltwin_rag.py](digitaltwin/digitaltwin_rag.py) | Core pipeline — connects to Upstash Vector, performs semantic search, generates responses via Groq |
+| [digitaltwin.json](digitaltwin/digitaltwin.json) | Your professional profile structured into embeddable content chunks |
+| [agents.md](digitaltwin/agents.md) | Instructions defining how the AI interviewer should behave, evaluate, and report |
+| [mcp.json](digitaltwin/mcp.json) | MCP server configuration for VS Code Agent Mode |
+| [prd.md](digitaltwin/docs/prd.md) | Product Requirements Document |
+| [design.md](digitaltwin/docs/design.md) | Technical Design Document |
+| [implementation-plan.md](digitaltwin/docs/implementation-plan.md) | Implementation plan and milestones |
 
 ### Tech Stack
 
