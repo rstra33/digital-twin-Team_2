@@ -26,10 +26,11 @@ real profile data from a vector database and generate factual, grounded response
 │   └────────────────────┬────────────────────────────────┘   │
 │                        │ MCP Tool Call                      │
 │   ┌────────────────────▼────────────────────────────────┐   │
-│   │              MCP Server (Python)                    │   │
+│   │              MCP Server (Next.js API Route)         │   │
 │   │  - Exposes semantic_search() tool                   │   │
 │   │  - Connects to Upstash Vector REST API              │   │
 │   │  - Returns top-k relevant profile chunks            │   │
+│   │  - Endpoint: /api/mcp (Streamable HTTP transport)   │   │
 │   └────────────────────┬────────────────────────────────┘   │
 │                        │ REST API                           │
 │   ┌────────────────────▼────────────────────────────────┐   │
@@ -56,11 +57,13 @@ real profile data from a vector database and generate factual, grounded response
 - **Input:** Natural language query (interview question)
 - **Process:** Performs semantic similarity search against Upstash Vector
 - **Output:** Top-k relevant profile chunks with similarity scores
-- **File:** `mcp-server/server.py`
+- **Transport:** Streamable HTTP (JSON-RPC 2.0) at `/api/mcp`
+- **File:** `app/api/mcp/route.ts` (Next.js API route)
 
 ### 3.3 Agent Orchestration
 - **Purpose:** Autonomously conducts the full interview
 - **Instructions:** Reads from `agents.md`
+- **Orchestrator:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) — no separate Python orchestrator
 - **Process:**
   1. Reads job description from `/jobs` folder
   2. Generates contextually relevant interview questions
@@ -68,17 +71,18 @@ real profile data from a vector database and generate factual, grounded response
   4. Synthesises grounded first-person answers
   5. Evaluates candidate fit
   6. Generates final Markdown report
-- **File:** `agent/interviewer.py`
+- **File:** `agents.md` (agent behaviour instructions)
 
 ### 3.4 Report Generator
 - **Purpose:** Produces final hiring recommendation report
+- **Orchestrator:** The agentic LLM generates reports autonomously based on `agents.md` instructions — no separate Python report generator
 - **Format:** Markdown
 - **Contents:**
   - Candidate details
   - Full interview transcript
   - Per-question evidence citations
   - Hire / No-hire recommendation with justification
-- **File:** `agent/report_generator.py`
+- **Output location:** `interview/`
 
 ### 3.5 Job Descriptions
 - **Location:** `/jobs` folder
@@ -117,22 +121,28 @@ Final Markdown Report (hire/no-hire recommendation)
 ## 5. File Structure
 ```
 digital-twin-Team_2/
-├── README.md
-├── AGENTS.md                  ← Agent behaviour instructions
-├── digitaltwin.json           ← Personal profile data
-├── digitaltwin_rag.py         ← Core RAG pipeline
-├── docs/
-│   ├── prd.md                 ← Product Requirements Document
-│   ├── design.md              ← This document
-│   └── implementation-plan.md ← Implementation plan
-├── mcp-server/
-│   └── server.py              ← MCP tool server
-├── agent/
-│   ├── interviewer.py         ← Interview orchestration
-│   └── report_generator.py   ← Report generation
-├── jobs/
-│   └── example-role.md        ← Job description files
-└── .gitignore
+└── digitaltwin/
+    ├── app/                       ← Next.js app directory
+    │   ├── globals.css
+    │   ├── layout.tsx
+    │   └── page.tsx
+    ├── docs/
+    │   ├── prd.md                 ← Product Requirements Document
+    │   ├── design.md              ← This document
+    │   └── implementation-plan.md ← Implementation plan
+    ├── interview/                 ← Stored interview transcripts and reports
+    ├── jobs/                      ← Job description files
+    ├── public/                    ← Next.js static assets
+    ├── .env                       ← Environment variables (not committed)
+    ├── .gitignore
+    ├── agents.md                  ← Agent behaviour instructions
+    ├── digitaltwin.json           ← Personal profile data
+    ├── digitaltwin_rag.py         ← Core RAG pipeline (Python)
+    ├── mcp.json                   ← MCP server configuration
+    ├── package.json               ← Node.js dependencies (pnpm)
+    ├── next.config.ts             ← Next.js configuration
+    ├── tsconfig.json              ← TypeScript configuration
+    └── README.md
 ```
 
 ---
@@ -141,11 +151,13 @@ digital-twin-Team_2/
 
 | Component | Technology | Reason |
 |---|---|---|
+| MCP Server | Next.js API route (Streamable HTTP) | Standard web framework, pnpm ecosystem |
 | Vector Database | Upstash Vector | Built-in embeddings, serverless, REST API |
 | LLM Inference | Groq (llama-3.1-8b-instant) | Ultra-fast inference |
 | Agent Mode | VS Code Insiders + GitHub Copilot | Option 1 — no UI required |
 | Tool Calling | MCP (Model Context Protocol) | Standard agentic tool interface |
-| Language | Python 3.10+ | Team familiarity |
+| Languages | Python 3.10+ (RAG pipeline) + TypeScript (MCP server) | Team familiarity + type safety |
+| Package Manager | pnpm | Fast, disk-efficient Node.js package manager |
 
 ---
 
@@ -162,10 +174,10 @@ digital-twin-Team_2/
 
 | PRD Acceptance Criteria | Design Component |
 |---|---|
-| MCP server performs semantic search | MCP Server → `semantic_search()` |
-| Agent generates questions autonomously | Agent Orchestration → `interviewer.py` |
+| MCP server performs semantic search | MCP Server → `semantic_search()` via Next.js API route |
+| Agent generates questions autonomously | Agentic LLM via `agents.md` instructions |
 | Agent retrieves relevant chunks | MCP tool call per question |
-| Final report with recommendation | Report Generator → `report_generator.py` |
+| Final report with recommendation | Agentic LLM generates Markdown report → `interview/` |
 | All members have visible commits | GitHub branch + PR workflow |
 | No secrets in repository | `.gitignore` + `.env` pattern |
 
@@ -177,7 +189,8 @@ digital-twin-Team_2/
 |---|---|---|
 | `GROQ_API_KEY` | Groq LLM inference API key | ✅ Yes |
 | `UPSTASH_VECTOR_REST_URL` | Upstash Vector database URL | ✅ Yes |
-| `UPSTASH_VECTOR_REST_TOKEN` | Upstash Vector authentication token | ✅ Yes |
+| `UPSTASH_VECTOR_REST_TOKEN` | Upstash Vector authentication token (read/write) | ✅ Yes |
+| `UPSTASH_VECTOR_REST_READONLY_TOKEN` | Upstash Vector read-only token (MCP server production) | ✅ Yes |
 | `RESET_UPSTASH_INDEX` | Set to `true` to rebuild vector database | ⬜ Optional |
 
 ---
@@ -185,6 +198,7 @@ digital-twin-Team_2/
 ## 10. API Contracts
 
 ### MCP Tool: semantic_search
+- **Endpoint:** `http://localhost:3000/api/mcp` (Streamable HTTP / JSON-RPC 2.0)
 - **Input:** `query` (string) — natural language question from the interviewer
 - **Parameters:** `top_k` (int, default 3) — number of results to return
 - **Output:** Array of chunks with the following fields:
@@ -226,6 +240,8 @@ digital-twin-Team_2/
 ---
 
 ## 13. Dependencies
+
+### Python (RAG pipeline)
 ```
 python-dotenv>=1.0.0
 upstash-vector>=0.5.0
@@ -237,7 +253,13 @@ Install with:
 pip install python-dotenv upstash-vector groq
 ```
 
+### Node.js (MCP server)
+Defined in `package.json`. Install with:
+```bash
+pnpm install
+```
+
 ---
 
 *This design was AI-generated from `docs/prd.md` using Claude and iteratively
-improved through team review. Last updated: Week 2.*
+improved through team review. Last updated: April 15, 2026.*
