@@ -19,7 +19,7 @@ The Digital Twin consists of:
 - `agents.md` — This file; AI agent instructions and behaviour rules
 - `mcp.json` — MCP server configuration for VS Code Agent Mode
 - `app/api/mcp/` — MCP server implementation (Next.js API route)
-- `jobs/` — Job description files the agent reads to generate interview questions
+- `job-postings/` — Job description files the agent reads to generate interview questions
 - `interview/` — Stored interview transcripts and reports
 - `docs/prd.md` — Product Requirements Document
 - `docs/design.md` — System design and architecture diagrams
@@ -66,7 +66,7 @@ The Digital Twin consists of:
 - **Vector search**: Top-3 results (`topK: 3`) with metadata included, using Upstash built-in embeddings
 - **LLM config**: Groq `llama-3.1-8b-instant`, temperature 0.7, max_tokens 500
 - **Report output**: Final interview report must be Markdown with transcript + hire/no-hire recommendation
-- **Job descriptions**: Stored in `/jobs` folder; agent reads these to generate targeted interview questions
+- **Job descriptions**: Stored in `/job-postings` folder; agent reads these to generate targeted interview questions
 - **Interview transcripts**: Stored in `/interview` folder after each session
 
 ## Environment Variables (.env)
