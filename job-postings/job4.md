@@ -96,3 +96,7 @@ A full-stack software engineering role at a mission-driven EdTech company, focus
 - Mission-driven team
 - Mentoring and succession planning
 - No discrimination policy across all backgrounds
+
+---
+
+From the Seek.com url: https://www.seek.com.au/job/91242813?type=standard&ref=search-standalone&origin=cardTitle#sol=966295dd4bd63207ba8d6ada38e36e10ce480892
