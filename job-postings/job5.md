@@ -84,3 +84,7 @@ An entry-level digital marketing coordinator role designed for someone at the ve
 **How to Apply:**
 - Click Apply and upload your resume
 - Application will include questions about right to work in Australia and expected annual base salary
+
+---
+
+From the Seek.com url: https://www.seek.com.au/job/91464731?type=standard&ref=search-standalone&origin=cardTitle#sol=60eeb6efe518760586b15424763d98c21da37914
