@@ -96,3 +96,7 @@ A full-stack junior developer role at a fast-moving digital marketing agency, wo
 **How to Apply:**
 - Submit CV + cover note (max 200 words) explaining one thing you've built and what you learned
 - ⚠️ Applications without a cover note will **not** be considered
+
+---
+
+From the Seek.com url: https://www.seek.com.au/job/91416907?type=standard&ref=search-standalone&origin=cardTitle#sol=8e5c0cbd7fdcd6d2f75fa11755bb28ed1af642af
