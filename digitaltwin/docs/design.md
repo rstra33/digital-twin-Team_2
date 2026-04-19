@@ -65,7 +65,7 @@ real profile data from a vector database and generate factual, grounded response
 - **Instructions:** Reads from `agents.md`
 - **Orchestrator:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) — no separate Python orchestrator
 - **Process:**
-  1. Reads job description from `/jobs` folder
+  1. Reads job description from `/job-postings` folder
   2. Generates contextually relevant interview questions
   3. Calls MCP tool for each question
   4. Synthesises grounded first-person answers
@@ -85,7 +85,7 @@ real profile data from a vector database and generate factual, grounded response
 - **Output location:** `interview/`
 
 ### 3.5 Job Descriptions
-- **Location:** `/jobs` folder
+- **Location:** `/job-postings` folder
 - **Format:** Markdown `.md` files
 - **Purpose:** Used by agent to generate relevant interview questions
 
@@ -131,7 +131,7 @@ digital-twin-Team_2/
     │   ├── design.md              ← This document
     │   └── implementation-plan.md ← Implementation plan
     ├── interview/                 ← Stored interview transcripts and reports
-    ├── jobs/                      ← Job description files
+    ├── job-postings/              ← Job description files
     ├── public/                    ← Next.js static assets
     ├── .env                       ← Environment variables (not committed)
     ├── .gitignore

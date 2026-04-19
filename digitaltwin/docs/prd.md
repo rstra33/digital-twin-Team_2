@@ -66,7 +66,7 @@ The Digital Twin must be able to:
 - The agent must synthesise professional, first-person answers grounded in retrieved data
 - The system must generate a Markdown report with full transcript and hire/no-hire recommendation
 - The agent must read interview rules and behaviour from `agents.md`
-- The system must support multiple job descriptions stored in a `/jobs` folder
+- The system must support multiple job descriptions stored in a `/job-postings` folder
 
 ---
 

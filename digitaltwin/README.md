@@ -53,7 +53,7 @@ digital-twin-Team_2/
 │   │   ├── design.md              ← Technical Design Document
 │   │   └── implementation-plan.md ← Implementation plan
 │   ├── interview/                 ← Stored interview transcripts and reports
-│   ├── jobs/                      ← Job description files
+│   ├── job-postings/              ← Job description files
 │   ├── public/                    ← Next.js static assets
 │   ├── .gitignore                 ← Prevents secrets and sensitive files from being committed
 │   ├── agents.md                  ← Interview agent instructions and rules
