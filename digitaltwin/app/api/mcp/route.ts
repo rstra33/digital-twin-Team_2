@@ -11,6 +11,23 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { method, params, id } = body;
 
+    if (method === 'initialize') {
+      return NextResponse.json({
+        jsonrpc: '2.0',
+        result: {
+          protocolVersion: '2024-11-05',
+          capabilities: {
+            tools: {},
+          },
+          serverInfo: {
+            name: 'digital-twin-mcp',
+            version: '1.0.0',
+          },
+        },
+        id,
+      });
+    }
+
     if (method === 'ping') {
       return NextResponse.json({
         jsonrpc: '2.0',
