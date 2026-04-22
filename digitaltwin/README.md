@@ -1,8 +1,11 @@
-Digital Twin — RAG-Powered Interview Agent
+# Digital Twin — RAG-Powered Interview Agent
+
 An AI-powered Digital Twin that conducts professional job interviews on your behalf using Retrieval-Augmented Generation (RAG). The system stores your real professional profile in a vector database, retrieves relevant evidence via semantic search, and generates factual, grounded interview responses — never hallucinating or inventing information.
+
 Built as part of the AusBiz Consulting Digital Twin project (Team 2).
 
 ## How It Works
+
 ```
 Job Description ──→ Agentic LLM (Claude / Groq)
                         │
@@ -20,13 +23,14 @@ Job Description ──→ Agentic LLM (Claude / Groq)
                         └── Produces final hiring recommendation report
 ```
 
-Embed — Your structured profile JSON is chunked, embedded, and stored in Upstash Vector.
-Retrieve — When an interview question is asked, the MCP server performs semantic search to find the most relevant profile chunks.
-Generate — The LLM analyses the retrieved evidence and produces an accurate, first-person answer grounded in your real data.
-Report — After the full interview, a Markdown report is generated with transcript, evaluation, and a hire/no-hire recommendation.
+**Embed** — Your structured profile JSON is chunked, embedded, and stored in Upstash Vector.  
+**Retrieve** — When an interview question is asked, the MCP server performs semantic search to find the most relevant profile chunks.  
+**Generate** — The LLM analyses the retrieved evidence and produces an accurate, first-person answer grounded in your real data.  
+**Report** — After the full interview, a Markdown report is generated with transcript, evaluation, and a hire/no-hire recommendation.
 
+---
 
-### Team Members
+## Team Members
 
 | Name | GitHub |
 |---|---|
@@ -38,13 +42,20 @@ Report — After the full interview, a Markdown report is generated with transcr
 | Rabib Islam | [rabib773](https://github.com/rabib773) |
 | Jose Pablo Du | [jsepblo](https://github.com/jsepblo) |
 
-### Repository Structure
+---
+
+## Repository Structure
+
 ```
 digital-twin-Team_2/
 ├── digitaltwin/
 │   ├── .vscode/
-│   │   └── mcp.json               ← VS Code MCP client configuration
-│   ├── app/                       ← Next.js app directory
+│   │   └── mcp.json                    ← VS Code MCP client configuration
+│   ├── app/                            ← Next.js app directory
+│   │   ├── actions/                    ← Server actions
+│   │   ├── api/
+│   │   │   └── [transport]/            ← MCP transport API route
+│   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
@@ -67,19 +78,23 @@ digital-twin-Team_2/
 └── .gitignore                     ← Root gitignore
 ```
 
-### Key Files
+---
+
+## Key Files
 
 | File | Purpose |
 |---|---|
-| [digitaltwin_rag.py](digitaltwin_rag.py) | Core pipeline — connects to Upstash Vector, performs semantic search, generates responses via Groq |
-| [digitaltwin.json](digitaltwin.json) | Your professional profile structured into embeddable content chunks |
-| [agents.md](agents.md) | Instructions defining how the AI interviewer should behave, evaluate, and report |
-| [mcp.json](mcp.json) | MCP server configuration for VS Code Agent Mode |
-| [prd.md](docs/prd.md) | Product Requirements Document outlining scope, timeline, and success criteria |
-| [design.md](docs/design.md) | Technical Design Document |
-| [implementation-plan.md](docs/implementation-plan.md) | Implementation plan and milestones |
+| [digitaltwin_rag.py](digitaltwin/digitaltwin_rag.py) | Core pipeline — connects to Upstash Vector, performs semantic search, generates responses via Groq |
+| [digitaltwin.json](digitaltwin/digitaltwin.json) | Your professional profile structured into embeddable content chunks |
+| [agents.md](digitaltwin/agents.md) | Instructions defining how the AI interviewer should behave, evaluate, and report |
+| [.vscode/mcp.json](digitaltwin/.vscode/mcp.json) | MCP server configuration for VS Code Agent Mode |
+| [docs/prd.md](digitaltwin/docs/prd.md) | Product Requirements Document outlining scope, timeline, and success criteria |
+| [docs/design.md](digitaltwin/docs/design.md) | Technical Design Document |
+| [docs/implementation-plan.md](digitaltwin/docs/implementation-plan.md) | Implementation plan and milestones |
 
-### Tech Stack
+---
+
+## Tech Stack
 
 | Component | Technology |
 |---|---|
@@ -91,24 +106,29 @@ digital-twin-Team_2/
 | Languages | Python (RAG pipeline) + TypeScript (MCP server) |
 | Package Manager | pnpm |
 
-Getting Started
-Prerequisites
+---
 
-Python 3.10+
-Node.js 18+
-pnpm (install via `npm install -g pnpm`)
-VS Code Insiders (required for Agent Mode)
-GitHub Copilot Pro subscription (for agentic LLM tool-calling)
-Upstash account with a Vector index created
-Groq API key
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- Node.js 18+
+- pnpm (install via `npm install -g pnpm`)
+- VS Code Insiders (required for Agent Mode)
+- GitHub Copilot Pro subscription (for agentic LLM tool-calling)
+- Upstash account with a Vector index created
+- Groq API key
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/rstra33/digital-twin-Team_2.git
 cd digital-twin-Team_2/digitaltwin
 ```
 
 ### 2. Install dependencies
+
 ```bash
 # Python dependencies (RAG pipeline)
 pip install python-dotenv upstash-vector groq
@@ -118,7 +138,9 @@ pnpm install
 ```
 
 ### 3. Configure environment variables
-Create a `.env` file in the project root with your keys:
+
+Create a `.env` file inside the `digitaltwin/` folder with your keys:
+
 ```
 GROQ_API_KEY=your_groq_api_key_here
 UPSTASH_VECTOR_REST_URL=your_upstash_url_here
@@ -128,6 +150,7 @@ RESET_UPSTASH_INDEX=true
 ```
 
 ### 4. Run the application
+
 ```bash
 # Start the Next.js MCP server
 pnpm dev
@@ -135,15 +158,21 @@ pnpm dev
 # Or run the Python RAG pipeline directly
 python digitaltwin_rag.py
 ```
-The MCP server runs at `http://localhost:3000/api/mcp` and is configured via `mcp.json`.
+
+The MCP server runs at `http://localhost:3000/api/mcp` and is configured via `.vscode/mcp.json`.
 
 On first run of the Python script, it detects an empty database, reads `digitaltwin.json`, chunks it, and uploads embeddings to Upstash Vector. Subsequent runs skip this step.
 
 This launches an interactive chat loop where you can ask questions directly and see the RAG pipeline in action.
 
-Final Working Version
+---
+
+## Final Working Version
+
 The main branch represents the final working version of this project.
 
+---
 
-License
+## License
+
 This project was developed for educational purposes as part of the AusBiz Consulting Digital Twin workshop.
