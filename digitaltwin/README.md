@@ -59,35 +59,23 @@ digital-twin-Team_2/
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
-│   ├── docs/                           ← Project documentation
-│   │   ├── design.md                   ← Technical Design Document
-│   │   ├── implementation-plan.md      ← Implementation plan
-│   │   └── prd.md                      ← Product Requirements Document
-│   ├── jobs/                           ← Job description files
-│   │   ├── job1.md
-│   │   ├── job2.md
-│   │   ├── job3.md
-│   │   ├── job4.md
-│   │   └── job5.md
-│   ├── lib/                            ← Shared utility libraries
-│   │   ├── chunker.ts                  ← Profile chunking logic
-│   │   ├── digital-twin.ts             ← Digital twin core utilities
-│   │   └── logger.ts                  ← Logging utilities
-│   ├── public/                         ← Next.js static assets
-│   ├── .gitignore                      ← Prevents secrets from being committed
-│   ├── README.md                       ← Project documentation
-│   ├── agents.md                       ← Interview agent instructions and rules
-│   ├── digitaltwin.json                ← Structured professional profile data
-│   ├── digitaltwin_rag.py              ← Core RAG pipeline (Upstash Vector + Groq)
-│   ├── eslint.config.mjs               ← ESLint configuration
-│   ├── next-env.d.ts                   ← Next.js TypeScript declarations
-│   ├── next.config.ts                  ← Next.js configuration
-│   ├── package-lock.json               ← npm lock file
-│   ├── package.json                    ← Node.js dependencies
-│   ├── pnpm-lock.yaml                  ← pnpm lock file
-│   ├── postcss.config.mjs              ← PostCSS configuration
-│   └── tsconfig.json                   ← TypeScript configuration
-└── README.md                           ← Root project documentation
+│   ├── docs/
+│   │   ├── prd.md                 ← Product Requirements Document
+│   │   ├── design.md              ← Technical Design Document
+│   │   └── implementation-plan.md ← Implementation plan
+│   ├── interview/                 ← Stored interview transcripts and reports
+│   ├── job-postings/              ← Job description files
+│   ├── public/                    ← Next.js static assets
+│   ├── .gitignore                 ← Prevents secrets and sensitive files from being committed
+│   ├── agents.md                  ← Interview agent instructions and rules
+│   ├── digitaltwin.json           ← Structured professional profile data
+│   ├── digitaltwin_rag.py         ← Core RAG application (Upstash Vector + Groq)
+│   ├── mcp.json                   ← MCP server configuration
+│   ├── next.config.ts             ← Next.js configuration
+│   ├── package.json               ← Node.js dependencies (pnpm)
+│   ├── tsconfig.json              ← TypeScript configuration
+│   └── README.md                  ← Project documentation
+└── .gitignore                     ← Root gitignore
 ```
 
 ---

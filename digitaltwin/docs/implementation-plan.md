@@ -34,7 +34,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 
 - [ ] Create directory structure:
   - `app/api/mcp/` (Next.js MCP server API route)
-  - `jobs/` (job description files)
+  - `job-postings/` (job description files)
   - `interview/` (interview transcripts and reports)
   - `tests/` (unit tests)
 - [ ] Initialize `requirements.txt` with Python dependencies:
@@ -148,7 +148,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
   - Persona definition (digital twin of candidate)
   - Behavior guidelines (autonomy, grounding, accuracy)
   - Constraints (do not make up information, cite evidence)
-  - Instructions for reading job descriptions from `jobs/` folder
+  - Instructions for reading job descriptions from `job-postings/` folder
   - Instructions for calling `semantic_search` MCP tool per question
   - Report format specification (transcript, evidence citations, hire/no-hire recommendation)
   - Example interview structure
@@ -164,8 +164,8 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 ### 3.2 Job Description Templates
 **Owner:** Ranne Sanedrin
 
-- [ ] Create `jobs/` directory structure
-- [ ] Create sample job description: `jobs/example-role.md`
+- [ ] Create `job-postings/` directory structure
+- [ ] Create sample job description: `job-postings/example-role.md`
   - Include role title, responsibilities, required skills, seniority level
 - [ ] Provide template for team members to add more jobs
 
@@ -182,7 +182,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 **Owner:** Vishva Patel
 
 - [ ] Run a full interview using VS Code Agent Mode with a sample job description
-  - Verify the LLM reads the job description from `jobs/`
+  - Verify the LLM reads the job description from `job-postings/`
   - Verify the LLM calls `semantic_search` MCP tool for each question
   - Verify answers are grounded in retrieved profile chunks
 - [ ] Verify the LLM generates a Markdown report containing:
@@ -385,7 +385,7 @@ Phase 5 (Week 9)
 | `app/api/mcp/route.ts` | MCP tool server as Next.js API route (new) |
 | `mcp.json` | MCP server configuration for VS Code Agent Mode |
 | `agents.md` | Agent behavior instructions — already exists, to be extended with interview logic |
-| `jobs/example-role.md` | Sample job description (new) |
+| `job-postings/example-role.md` | Sample job description (new) |
 | `interview/` | Stored interview transcripts and reports |
 | `.env` | Environment variables — create locally, not in git |
 | `.gitignore` | Already exists, already excludes `.env` |
