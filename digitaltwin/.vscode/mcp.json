@@ -2,9 +2,15 @@
   "servers": {
     "digital-twin-mcp": {
       "type": "http",
-      "url": "http://localhost:3000/api/mcp",
+      "url": "https://digital-twin-team-2.vercel.app/api/mcp",
       "timeout": 30000,
       "description": "Digital Twin RAG MCP Server for interview preparation"
+    },
+    "digital-twin-local": {
+      "type": "http",
+      "url": "http://localhost:3000/api/mcp",
+      "timeout": 30000,
+      "description": "Local Digital Twin RAG MCP Server"
     }
   }
 }
