@@ -1,0 +1,244 @@
+
+{
+"_comment": "Template for personal data — DO NOT COMMIT TO MAIN",
+
+
+  "personal": {
+    "name": "Your Full Name",
+    "title": "Senior Software Engineer",
+    "location": "Melbourne, Australia",
+    "summary": "Passionate software engineer with 5+ years building scalable applications...",
+    "elevator_pitch": "Brief 30-second introduction highlighting your unique value proposition",
+    "contact": {
+      "email": "your.email@example.com",
+      "linkedin": "https://linkedin.com/in/yourprofile",
+      "github": "https://github.com/yourusername",
+      "portfolio": "https://yourportfolio.com"
+    }
+  },
+  "salary_location": {
+    "current_salary": "$85,000 - $95,000 AUD",
+    "salary_expectations": "$95,000 - $110,000 AUD based on role complexity",
+    "location_preferences": ["Melbourne CBD", "Remote", "Hybrid"],
+    "relocation_willing": true,
+    "remote_experience": "3+ years remote collaboration experience",
+    "travel_availability": "Available for interstate travel up to 25%",
+    "work_authorization": "Australian Citizen / Permanent Resident"
+  },
+  "experience": [
+    {
+      "company": "TechCorp Australia",
+      "title": "Senior Software Engineer",
+      "duration": "Jan 2021 - Present (3.5 years)",
+      "company_context": "200+ employee fintech startup, Series B funding",
+      "team_structure": "Engineering team of 25, direct reports: 3 junior developers",
+      "achievements_star": [
+        {
+          "situation": "Legacy monolith causing 3-second page load times affecting user retention",
+          "task": "Lead architectural redesign to improve performance",
+          "action": "Implemented microservices architecture using Docker, Kubernetes, and Redis caching",
+          "result": "Reduced load times by 40% to 1.8s, increased user retention by 15%, saved $50K annually in server costs"
+        }
+      ],
+      "technical_skills_used": ["Python", "AWS (EC2, RDS, S3)", "Docker", "Kubernetes", "PostgreSQL"],
+      "leadership_examples": ["Mentored 3 junior developers", "Led code review processes", "Coordinated with product and design teams"],
+      "budget_managed": "$300K annual infrastructure budget",
+      "team_size_managed": 5
+    }
+  ],
+  "skills": {
+    "technical": {
+      "programming_languages": [
+        {"language": "Python", "years": 5, "proficiency": "Expert", "frameworks": ["Django", "FastAPI", "Flask"]},
+        {"language": "JavaScript", "years": 4, "proficiency": "Advanced", "frameworks": ["React", "Node.js", "TypeScript"]}
+      ],
+      "databases": ["PostgreSQL (5 years)", "MongoDB (3 years)", "Redis (2 years)"],
+      "cloud_platforms": ["AWS (4 years)", "Docker (3 years)", "Kubernetes (2 years)"],
+      "ai_ml": ["RAG systems", "Vector databases", "LLM integration", "OpenAI API"]
+    },
+    "soft_skills": ["Technical Leadership", "Cross-functional Collaboration", "Mentoring", "Problem-solving", "Agile/Scrum"],
+    "certifications": ["AWS Solutions Architect (expires 2025)", "Certified Scrum Master (2023)"]
+  },
+  "education": {
+    "university": "University of Melbourne",
+    "degree": "Bachelor of Computer Science",
+    "graduation_year": 2019,
+    "gpa": "3.7/4.0 (High Distinction)",
+    "relevant_coursework": ["Data Structures", "Algorithms", "Database Systems", "Machine Learning"],
+    "thesis_project": "Predictive Analytics for E-commerce Recommendations"
+  },
+  "projects_portfolio": [
+    {
+      "name": "AI-Powered Digital Twin Workshop Platform",
+      "description": "End-to-end RAG system for interview preparation",
+      "technologies": ["Python", "Upstash Vector", "Groq API", "Next.js"],
+      "impact": "Helped 100+ professionals improve interview performance",
+      "github_url": "https://github.com/username/digital-twin",
+      "live_demo": "https://mydigitaltwin.vercel.app"
+    }
+  ],
+  "career_goals": {
+    "short_term": "Lead technical architect role with AI/ML focus",
+    "long_term": "Head of Engineering at AI-first company",
+    "learning_focus": ["Advanced AI/ML systems", "Large-scale system architecture", "Team leadership"],
+    "industries_interested": ["Fintech", "AI/ML", "Enterprise SaaS"]
+  },
+  "interview_prep": {
+    "common_questions": {
+      "behavioral": [
+        "Tell me about a time you had to lead a difficult technical decision",
+        "Describe a project where you had to learn a new technology quickly",
+        "How do you handle conflicting priorities and tight deadlines?"
+      ],
+      "technical": [
+        "Walk me through your approach to system design for a high-traffic application",
+        "How would you implement a real-time notification system?",
+        "Explain your experience with microservices architecture"
+      ],
+      "situational": [
+        "A critical production bug is affecting customers. Walk me through your response process",
+        "How would you approach mentoring a struggling team member?",
+        "Describe how you would evaluate and implement a new technology in your team"
+      ],
+      "company_research": {
+        "research_areas": ["Company mission and values", "Recent product launches", "Engineering culture", "Technical challenges"],
+        "preparation_questions": ["What excites you about our product?", "Why do you want to work here?", "What questions do you have for us?"]
+      }
+    },
+    "weakness_mitigation": [
+      {
+        "weakness": "Limited experience with Kubernetes in production",
+        "mitigation": "Currently completing CKA certification, have experience with Docker and container orchestration concepts"
+      }
+    ]
+  },
+  "professional_development": {
+    "recent_learning": ["RAG systems implementation", "Vector databases", "MCP protocol development"],
+    "conferences_attended": ["PyCon Australia 2024", "AWS re:Invent 2023"],
+    "publications": ["Blog post: Building Production RAG Systems with Upstash Vector"],
+    "open_source": ["Contributor to FastAPI documentation", "Maintainer of internal Python utilities library"]
+  },
+
+  "content_chunks": [
+    {
+      "id": "personal_01",
+      "title": "Professional Background",
+      "type": "personal",
+      "content": "I am a Senior Software Engineer based in Melbourne, Australia with 5+ years of experience building scalable applications. I'm passionate about designing robust systems and driving technical excellence. My expertise spans full-stack development, cloud architecture, and AI/ML integration.",
+      "metadata": {
+        "category": "background",
+        "tags": ["software engineer", "professional", "background"]
+      }
+    },
+    {
+      "id": "personal_02",
+      "title": "Contact Information",
+      "type": "personal",
+      "content": "Email: your.email@example.com | LinkedIn: https://linkedin.com/in/yourprofile | GitHub: https://github.com/yourusername | Portfolio: https://yourportfolio.com",
+      "metadata": {
+        "category": "contact",
+        "tags": ["contact", "email", "linkedin"]
+      }
+    },
+    {
+      "id": "experience_01",
+      "title": "Current Role - Senior Software Engineer",
+      "type": "experience",
+      "content": "Senior Software Engineer at TechCorp Australia (Jan 2021 - Present, 3.5 years). Leading architectural initiatives in a 200+ employee fintech startup. Direct reports: 3 junior developers. Managed $300K annual infrastructure budget. Led microservices migration reducing load times by 40% and saving $50K annually in server costs.",
+      "metadata": {
+        "category": "experience",
+        "tags": ["senior engineer", "leadership", "fintech", "architecture"]
+      }
+    },
+    {
+      "id": "skills_01",
+      "title": "Technical Skills - Programming Languages",
+      "type": "skills",
+      "content": "Expert-level proficiency in Python (5 years, frameworks: Django, FastAPI, Flask). Advanced JavaScript (4 years, React, Node.js, TypeScript). Databases: PostgreSQL (5 years), MongoDB (3 years), Redis (2 years). Cloud platforms: AWS (4 years), Docker (3 years), Kubernetes (2 years).",
+      "metadata": {
+        "category": "technical_skills",
+        "tags": ["python", "javascript", "aws", "databases"]
+      }
+    },
+    {
+      "id": "skills_02",
+      "title": "AI/ML & Modern Technologies",
+      "type": "skills",
+      "content": "Specialized in RAG systems implementation, vector databases, and LLM integration. Experienced with OpenAI API, Groq, and modern AI frameworks. Currently developing AI-powered applications and digital twin systems. Strong knowledge of prompt engineering and vector search optimization.",
+      "metadata": {
+        "category": "technical_skills",
+        "tags": ["ai", "ml", "rag", "vector databases", "llm"]
+      }
+    },
+    {
+      "id": "skills_03",
+      "title": "Soft Skills & Leadership",
+      "type": "skills",
+      "content": "Technical Leadership, Cross-functional Collaboration, Mentoring junior developers, Problem-solving, Agile/Scrum methodologies. Strong ability to communicate complex technical concepts, lead code reviews, and coordinate across product and design teams.",
+      "metadata": {
+        "category": "soft_skills",
+        "tags": ["leadership", "communication", "teamwork", "mentoring"]
+      }
+    },
+    {
+      "id": "education_01",
+      "title": "Education",
+      "type": "education",
+      "content": "Bachelor of Computer Science from University of Melbourne (2019). High Distinction GPA: 3.7/4.0. Relevant coursework: Data Structures, Algorithms, Database Systems, Machine Learning. Thesis project: Predictive Analytics for E-commerce Recommendations.",
+      "metadata": {
+        "category": "education",
+        "tags": ["computer science", "university", "machine learning"]
+      }
+    },
+    {
+      "id": "certifications_01",
+      "title": "Professional Certifications",
+      "type": "certifications",
+      "content": "AWS Solutions Architect Certified (expires 2025). Certified Scrum Master (2023). Currently pursuing Certified Kubernetes Administrator (CKA). Strong credentials in cloud architecture and agile methodologies.",
+      "metadata": {
+        "category": "certifications",
+        "tags": ["aws", "scrum", "kubernetes"]
+      }
+    },
+    {
+      "id": "projects_01",
+      "title": "Portfolio Project - AI-Powered Digital Twin Workshop",
+      "type": "projects",
+      "content": "End-to-end RAG system for interview preparation and professional development. Technologies: Python, Upstash Vector, Groq API, Next.js. Helped 100+ professionals improve interview performance. Live demo: https://mydigitaltwin.vercel.app. GitHub: https://github.com/username/digital-twin.",
+      "metadata": {
+        "category": "projects",
+        "tags": ["rag", "ai", "digital twin", "interview prep"]
+      }
+    },
+    {
+      "id": "career_goals_01",
+      "title": "Career Goals",
+      "type": "career",
+      "content": "Short-term goal: Lead technical architect role with AI/ML focus. Long-term: Head of Engineering at AI-first company. Focused learning areas: Advanced AI/ML systems, Large-scale system architecture, Team leadership. Industries of interest: Fintech, AI/ML, Enterprise SaaS.",
+      "metadata": {
+        "category": "career_goals",
+        "tags": ["architecture", "ai", "leadership", "career growth"]
+      }
+    },
+    {
+      "id": "expertise_01",
+      "title": "System Architecture & Microservices",
+      "type": "expertise",
+      "content": "Deep expertise in designing and implementing microservices architecture. Experienced with containerization, orchestration, and distributed systems. Successfully led architectural redesigns improving performance by 40% and reducing infrastructure costs significantly. Strong understanding of scalability, reliability, and deployment patterns.",
+      "metadata": {
+        "category": "expertise",
+        "tags": ["architecture", "microservices", "kubernetes", "scalability"]
+      }
+    },
+    {
+      "id": "methodology_01",
+      "title": "Development Methodologies",
+      "type": "methodology",
+      "content": "Agile/Scrum practitioner with experience in sprint planning, retrospectives, and continuous improvement. Strong code review practices and mentoring approach. Experience with CI/CD pipelines, automated testing, and DevOps practices. Advocate for clean code and architectural excellence.",
+      "metadata": {
+        "category": "methodology",
+        "tags": ["agile", "scrum", "devops", "code quality"]
+      }
+    }
+  ]
+}
