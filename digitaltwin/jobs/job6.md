@@ -88,3 +88,9 @@ The successful candidate will assist in collecting, cleaning, and analysing busi
 - Submit updated resume and academic transcript
 - Complete online application assessment
 - Shortlisted candidates will attend interviews and skills evaluation
+
+## Notes
+- Updated by Pablo for setup practice
+- First commit on setup branch
+- Added second update for commit practice
+- Improved formatting and documentation
