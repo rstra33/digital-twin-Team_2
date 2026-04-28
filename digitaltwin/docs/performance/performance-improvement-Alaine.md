@@ -10,7 +10,8 @@
 2. **Job descriptions in wrong location** — job files not placed in correct `digitaltwin/jobs/` folder
 3. **Profile lacked career transition narrative** — `digitaltwin.json` missing bridge between marketing background and tech industry
 4. **Merge conflicts** — unable to cleanly merge branch into main due to structural differences
-5. **MCP test results not personalised** — responses reflected generic profile rather than marketing and sustainability expertise
+5. **MCP test results not personalised** — responses shows a generic profile rather than a marketing and sustainability expertise found in the initial profile data
+6. **Complications with the Vectors** - Upstash database is not being used properly in the interview testing, reflecting a different profile from the database
 
 ---
 
@@ -19,6 +20,7 @@
 ### Repository Improvements
 - Resolved branch divergence by resetting to latest main
 - Moved job description files to correct `digitaltwin/jobs/` location
+- Typed the job description files in a standard template of company information, job details, and selection criteria
 - Successfully merged branch into main via clean PR
 
 ### Profile Data Improvements
@@ -27,6 +29,7 @@
 - Strengthened sustainability and food industry expertise sections
 - Added career transition narrative bridging marketing background to data analytics
 - Included Advanced Excel and Google Sheets proficiency with quantified examples
+- Reinforced the Upstash database with updated `digitaltwin.json` file 
 
 ### MCP Integration Improvements
 - Connected personal Upstash database to production MCP server
