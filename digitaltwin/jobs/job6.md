@@ -93,3 +93,4 @@ The successful candidate will assist in collecting, cleaning, and analysing busi
 - Updated by Pablo for setup practice
 - First commit on setup branch
 - Added second update for commit practice
+- Improved formatting and documentation
