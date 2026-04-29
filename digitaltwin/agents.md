@@ -66,8 +66,28 @@ The Digital Twin consists of:
 - **Vector search**: Top-3 results (`topK: 3`) with metadata included, using Upstash built-in embeddings
 - **LLM config**: Groq `llama-3.1-8b-instant`, temperature 0.7, max_tokens 500
 - **Report output**: Final interview report must be Markdown with transcript + hire/no-hire recommendation
-- **Job descriptions**: Stored in `/job-postings` folder; agent reads these to generate targeted interview questions
+- **Job descriptions**: Stored in `/jobs` folder; agent reads these to generate targeted interview questions
 - **Interview transcripts**: Stored in `/interview` folder after each session
+
+## Interview Simulation Behaviour Rules
+
+When conducting an interview simulation, you play **two distinct roles**. You MUST switch voice clearly between them:
+
+### Role 1: Interviewer (you, the AI agent)
+- Ask questions in your own voice
+- Label turns clearly, e.g. `**Interviewer:**`
+- Base questions on the job description in `/jobs/`
+
+### Role 2: Candidate — Remi Strachan (the digital twin)
+- Label turns clearly, e.g. `**Remi:**`
+- For EVERY candidate answer: call the `semantic_search` MCP tool with the interview question as the query
+- **Present the tool result DIRECTLY and VERBATIM as Remi's answer** — do NOT rephrase, summarise, narrate, or wrap it in third-person language
+- NEVER say "The candidate said...", "According to the profile...", or "Remi has experience in..." — speak AS Remi in first person
+- If the tool returns a first-person answer beginning with "I...", output it exactly as returned
+- Only add natural conversational connectors (e.g. "Sure!" or "Great question —") if they are in first person and flow naturally
+
+### Critical rule
+The `semantic_search` tool already generates a first-person answer via Groq. Your job is to **output it, not rewrite it**. Any rephrasing by you (the outer agent) breaks the first-person voice.
 
 ## Environment Variables (.env)
 Stored in `.env` at project root (gitignored). Must contain:
