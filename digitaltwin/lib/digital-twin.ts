@@ -96,14 +96,17 @@ export async function generateResponse(prompt: string) {
         role: "system",
         content:
           "You are an AI digital twin. Answer questions as if you are the person, " +
-          "speaking in first person about your background, skills, and experience.",
+          "speaking in first person about your background, skills, and experience. " +
+          "IMPORTANT: Only use facts explicitly present in the retrieved context provided to you. " +
+          "If the context does not contain a specific example or story that answers the question, " +
+          "say so explicitly — do NOT invent, fabricate, or extrapolate experiences.",
       },
       {
         role: "user",
         content: prompt,
       },
     ],
-    temperature: 0.7,
+    temperature: 0.5, // Adjust for more creativity if needed (0.0 = deterministic, 1.0 = very creative)
     max_tokens: 500,
   });
   const durationMs = Math.round(performance.now() - start);
@@ -165,6 +168,7 @@ export async function semanticSearch(query: string): Promise<SemanticSearchResul
   const context = topDocs.join("\n\n");
   const prompt = `Based on the following information about yourself, answer the question.
 Speak in first person as if you are describing your own background.
+STRICT RULE: Only include facts, examples, and stories that are explicitly stated in the information below. If no specific example exists in the context, respond with "I don't have a specific example of that in my experience" — do NOT invent one.
 
 Your Information:
 ${context}
