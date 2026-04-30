@@ -58,14 +58,14 @@ real profile data from a vector database and generate factual, grounded response
 - **Process:** Performs semantic similarity search against Upstash Vector
 - **Output:** Top-k relevant profile chunks with similarity scores
 - **Transport:** Streamable HTTP (JSON-RPC 2.0) at `/api/mcp`
-- **File:** `app/api/mcp/route.ts` (Next.js API route)
+- **File:** `app/api/[transport]/route.ts` (Next.js API route)
 
 ### 3.3 Agent Orchestration
 - **Purpose:** Autonomously conducts the full interview
 - **Instructions:** Reads from `agents.md`
 - **Orchestrator:** The agentic LLM (GitHub Copilot in VS Code Agent Mode) — no separate Python orchestrator
 - **Process:**
-  1. Reads job description from `/job-postings` folder
+  1. Reads job description from `/jobs` folder
   2. Generates contextually relevant interview questions
   3. Calls MCP tool for each question
   4. Synthesises grounded first-person answers
@@ -85,8 +85,8 @@ real profile data from a vector database and generate factual, grounded response
 - **Output location:** `interview/`
 
 ### 3.5 Job Descriptions
-- **Location:** `/job-postings` folder
-- **Format:** Markdown `.md` files
+- **Location:** `/jobs` folder
+- **Format:** Markdown `.md` files (job1.md through job6.md)
 - **Purpose:** Used by agent to generate relevant interview questions
 
 ---
@@ -122,23 +122,34 @@ Final Markdown Report (hire/no-hire recommendation)
 ```
 digital-twin-Team_2/
 └── digitaltwin/
+    ├── .vscode/
+    │   └── mcp.json               ← MCP server configuration for VS Code
     ├── app/                       ← Next.js app directory
+    │   ├── actions/
+    │   │   └── mcp-actions.ts     ← MCP server actions
+    │   ├── api/
+    │   │   └── [transport]/
+    │   │       └── route.ts       ← MCP transport API route
     │   ├── globals.css
     │   ├── layout.tsx
     │   └── page.tsx
     ├── docs/
+    │   ├── performance/           ← Performance benchmarks and results
+    │   ├── presentation-outline/  ← Presentation outline files
     │   ├── prd.md                 ← Product Requirements Document
     │   ├── design.md              ← This document
     │   └── implementation-plan.md ← Implementation plan
-    ├── interview/                 ← Stored interview transcripts and reports
-    ├── job-postings/              ← Job description files
+    ├── jobs/                      ← Job description files (job1.md–job6.md)
+    ├── lib/
+    │   ├── chunker.ts             ← Profile chunking logic
+    │   ├── digital-twin.ts        ← Digital twin core utilities
+    │   └── logger.ts             ← Logging utilities
     ├── public/                    ← Next.js static assets
     ├── .env                       ← Environment variables (not committed)
     ├── .gitignore
     ├── agents.md                  ← Agent behaviour instructions
-    ├── digitaltwin.json           ← Personal profile data
+    ├── digitaltwin.json           ← Personal profile data (git-ignored — local only)
     ├── digitaltwin_rag.py         ← Core RAG pipeline (Python)
-    ├── mcp.json                   ← MCP server configuration
     ├── package.json               ← Node.js dependencies (pnpm)
     ├── next.config.ts             ← Next.js configuration
     ├── tsconfig.json              ← TypeScript configuration
@@ -154,9 +165,9 @@ digital-twin-Team_2/
 | MCP Server | Next.js API route (Streamable HTTP) | Standard web framework, pnpm ecosystem |
 | Vector Database | Upstash Vector | Built-in embeddings, serverless, REST API |
 | LLM Inference | Groq (llama-3.1-8b-instant) | Ultra-fast inference |
-| Agent Mode | VS Code Insiders + GitHub Copilot | Option 1 — no UI required |
+| Agent Mode | VS Code Insiders + GitHub Copilot / Claude Code | Agentic LLM tool-calling |
 | Tool Calling | MCP (Model Context Protocol) | Standard agentic tool interface |
-| Languages | Python 3.10+ (RAG pipeline) + TypeScript (MCP server) | Team familiarity + type safety |
+| Languages | Python 3.11.9 (RAG pipeline) + TypeScript (MCP server) | Team familiarity + type safety |
 | Package Manager | pnpm | Fast, disk-efficient Node.js package manager |
 
 ---
@@ -166,6 +177,7 @@ digital-twin-Team_2/
 - All API keys stored in `.env` files locally
 - `.gitignore` prevents `.env` from being committed
 - No personal embeddings stored in GitHub
+- `digitaltwin.json` is git-ignored — each member maintains their own local copy
 - `RESET_UPSTASH_INDEX` env flag controls database resets safely
 
 ---
@@ -236,6 +248,7 @@ digital-twin-Team_2/
 - MCP server must be running locally before agent can call tools
 - Each team member must maintain their own separate Upstash Vector database
 - `RESET_UPSTASH_INDEX=true` must be set on first run to upload vectors
+- Python 3.11.9 recommended — Python 3.14 has known compatibility issues with dependencies
 
 ---
 
@@ -261,5 +274,18 @@ pnpm install
 
 ---
 
+## Team Members
+
+| Name | GitHub |
+|---|---|
+| Ranne Sanedrin | [impulsifier](https://github.com/impulsifier) |
+| Remi Strachan | [rstra33](https://github.com/rstra33) |
+| Andrea Cuevas | [cuevasandrea676-bit](https://github.com/cuevasandrea676-bit) |
+| Alaine Krizia | [alainekrizia](https://github.com/alainekrizia) |
+| Rabib Islam | [rabib773](https://github.com/rabib773) |
+| Jose Pablo Du | [jsepblo](https://github.com/jsepblo) |
+
+---
+
 *This design was AI-generated from `docs/prd.md` using Claude and iteratively
-improved through team review. Last updated: April 15, 2026.*
+improved through team review. Last updated: April 30, 2026.*
