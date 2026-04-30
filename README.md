@@ -36,7 +36,6 @@ Job Description ──→ Agentic LLM (Claude / Groq)
 |---|---|
 | Ranne Sanedrin | [impulsifier](https://github.com/impulsifier) |
 | Remi Strachan | [rstra33](https://github.com/rstra33) |
-| Vishva Patel | [vishva-patel187](https://github.com/vishva-patel187) |
 | Andrea Cuevas | [cuevasandrea676-bit](https://github.com/cuevasandrea676-bit) |
 | Alaine Krizia | [alainekrizia](https://github.com/alainekrizia) |
 | Rabib Islam | [rabib773](https://github.com/rabib773) |
@@ -52,14 +51,18 @@ digital-twin-Team_2/
 │   ├── .vscode/
 │   │   └── mcp.json                    ← VS Code MCP client configuration
 │   ├── app/                            ← Next.js app directory
-│   │   ├── actions/                    ← Server actions
+│   │   ├── actions/
+│   │   │   └── mcp-actions.ts          ← MCP server actions
 │   │   ├── api/
-│   │   │   └── [transport]/            ← MCP transport API route
+│   │   │   └── [transport]/
+│   │   │       └── route.ts            ← MCP transport API route
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── docs/                           ← Project documentation
+│   │   ├── performance/                ← Performance benchmarks and results
+│   │   ├── presentation-outline/       ← Presentation outline files
 │   │   ├── design.md                   ← Technical Design Document
 │   │   ├── implementation-plan.md      ← Implementation plan
 │   │   └── prd.md                      ← Product Requirements Document
@@ -68,16 +71,22 @@ digital-twin-Team_2/
 │   │   ├── job2.md
 │   │   ├── job3.md
 │   │   ├── job4.md
-│   │   └── job5.md
+│   │   ├── job5.md
+│   │   └── job6.md
 │   ├── lib/                            ← Shared utility libraries
 │   │   ├── chunker.ts                  ← Profile chunking logic
 │   │   ├── digital-twin.ts             ← Digital twin core utilities
 │   │   └── logger.ts                  ← Logging utilities
 │   ├── public/                         ← Next.js static assets
+│   │   ├── file.svg
+│   │   ├── globe.svg
+│   │   ├── next.svg
+│   │   ├── vercel.svg
+│   │   └── window.svg
 │   ├── .gitignore                      ← Prevents secrets from being committed
 │   ├── README.md                       ← Project documentation
 │   ├── agents.md                       ← Interview agent instructions and rules
-│   ├── digitaltwin.json                ← Structured professional profile data
+│   ├── digitaltwin.json                ← Structured professional profile data (git-ignored — stored locally only)
 │   ├── digitaltwin_rag.py              ← Core RAG pipeline (Upstash Vector + Groq)
 │   ├── eslint.config.mjs               ← ESLint configuration
 │   ├── next-env.d.ts                   ← Next.js TypeScript declarations
@@ -87,6 +96,7 @@ digital-twin-Team_2/
 │   ├── pnpm-lock.yaml                  ← pnpm lock file
 │   ├── postcss.config.mjs              ← PostCSS configuration
 │   └── tsconfig.json                   ← TypeScript configuration
+├── .gitignore                          ← Root gitignore
 └── README.md                           ← Root project documentation
 ```
 
@@ -97,7 +107,7 @@ digital-twin-Team_2/
 | File | Purpose |
 |---|---|
 | [digitaltwin_rag.py](digitaltwin/digitaltwin_rag.py) | Core pipeline — connects to Upstash Vector, performs semantic search, generates responses via Groq |
-| [digitaltwin.json](digitaltwin/digitaltwin.json) | Your professional profile structured into embeddable content chunks |
+| [digitaltwin.json](digitaltwin/digitaltwin.json) | Your professional profile structured into embeddable content chunks (git-ignored — not committed to repo) |
 | [agents.md](digitaltwin/agents.md) | Instructions defining how the AI interviewer should behave, evaluate, and report |
 | [.vscode/mcp.json](digitaltwin/.vscode/mcp.json) | MCP server configuration for VS Code Agent Mode |
 | [docs/prd.md](digitaltwin/docs/prd.md) | Product Requirements Document outlining scope, timeline, and success criteria |
@@ -124,7 +134,7 @@ digital-twin-Team_2/
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.11.9 (recommended — earlier or later versions may cause dependency issues)
 - Node.js 18+
 - pnpm (install via `npm install -g pnpm`)
 - VS Code Insiders (required for Agent Mode)
@@ -161,6 +171,8 @@ UPSTASH_VECTOR_REST_READONLY_TOKEN=your_upstash_readonly_token_here
 RESET_UPSTASH_INDEX=true
 ```
 
+> **Note:** `digitaltwin.json` is git-ignored and must be created locally by each team member. It contains your personal professional profile data and should never be committed to the repository.
+
 ### 4. Run the application
 
 ```bash
@@ -168,12 +180,12 @@ RESET_UPSTASH_INDEX=true
 pnpm dev
 
 # Or run the Python RAG pipeline directly
-python digitaltwin_rag.py
+py -3.11 digitaltwin_rag.py
 ```
 
 The MCP server runs at `http://localhost:3000/api/mcp` and is configured via `.vscode/mcp.json`.
 
-On first run of the Python script, it detects an empty database, reads `digitaltwin.json`, chunks it, and uploads embeddings to Upstash Vector. Subsequent runs skip this step.
+On first run of the Python script, it detects an empty database, reads `digitaltwin.json`, chunks it, and uploads embeddings to Upstash Vector. Subsequent runs skip this step unless `RESET_UPSTASH_INDEX=true` is set.
 
 This launches an interactive chat loop where you can ask questions directly and see the RAG pipeline in action.
 
