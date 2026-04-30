@@ -4,7 +4,7 @@
 Build an MCP server using the roll dice pattern to create a digital twin assistant that can answer questions about a person's professional profile using RAG (Retrieval-Augmented Generation).
 
 ## Tech Stack
-- **Languages**: Python 3.10+ (RAG pipeline) + TypeScript (MCP server)
+- **Languages**: Python 3.11.9 (RAG pipeline) + TypeScript (MCP server)
 - **MCP Server Framework**: Next.js 15.5.3+ (API route at `/api/mcp`)
 - **Vector Database**: Upstash Vector (REST API via SDK)
 - **LLM Provider**: Groq with LLaMA model
@@ -14,12 +14,12 @@ Build an MCP server using the roll dice pattern to create a digital twin assista
 
 ## Architecture & Code Structure
 The Digital Twin consists of:
-- `digitaltwin.json` — Structured professional profile data (name, experience, skills, etc.)
+- `digitaltwin.json` — Structured professional profile data (git-ignored — stored locally only)
 - `digitaltwin_rag.py` — Core RAG application: chunking, embedding, vector search, Groq LLM generation
 - `agents.md` — This file; AI agent instructions and behaviour rules
-- `mcp.json` — MCP server configuration for VS Code Agent Mode
-- `app/api/mcp/` — MCP server implementation (Next.js API route)
-- `job-postings/` — Job description files the agent reads to generate interview questions
+- `.vscode/mcp.json` — MCP server configuration for VS Code Agent Mode
+- `app/api/[transport]/route.ts` — MCP server implementation (Next.js API route)
+- `jobs/` — Job description files the agent reads to generate interview questions (job1.md–job6.md)
 - `interview/` — Stored interview transcripts and reports
 - `docs/prd.md` — Product Requirements Document
 - `docs/design.md` — System design and architecture diagrams
@@ -53,7 +53,7 @@ The Digital Twin consists of:
 - **Groq API**: https://console.groq.com/docs/openai
 - **LangChain RAG**: https://python.langchain.com/docs/tutorials/rag/
 - **Anthropic Claude**: https://docs.anthropic.com
- 
+
 ## Core Functionality
 - MCP server accepts user questions about the person's professional background
 - Create server actions that search Upstash Vector database and return RAG results
@@ -66,8 +66,28 @@ The Digital Twin consists of:
 - **Vector search**: Top-3 results (`topK: 3`) with metadata included, using Upstash built-in embeddings
 - **LLM config**: Groq `llama-3.1-8b-instant`, temperature 0.7, max_tokens 500
 - **Report output**: Final interview report must be Markdown with transcript + hire/no-hire recommendation
-- **Job descriptions**: Stored in `/job-postings` folder; agent reads these to generate targeted interview questions
+- **Job descriptions**: Stored in `/jobs` folder; agent reads these to generate targeted interview questions
 - **Interview transcripts**: Stored in `/interview` folder after each session
+
+## Interview Simulation Behaviour Rules
+
+When conducting an interview simulation, you play **two distinct roles**. You MUST switch voice clearly between them:
+
+### Role 1: Interviewer (you, the AI agent)
+- Ask questions in your own voice
+- Label turns clearly, e.g. `**Interviewer:**`
+- Base questions on the job description in `/jobs/`
+
+### Role 2: Candidate — Digital Twin
+- Label turns clearly, e.g. `**Candidate:**`
+- For EVERY candidate answer: call the `semantic_search` MCP tool with the interview question as the query
+- **Present the tool result DIRECTLY and VERBATIM as the candidate's answer** — do NOT rephrase, summarise, narrate, or wrap it in third-person language
+- NEVER say "The candidate said...", "According to the profile...", or "The candidate has experience in..." — speak AS the candidate in first person
+- If the tool returns a first-person answer beginning with "I...", output it exactly as returned
+- Only add natural conversational connectors (e.g. "Sure!" or "Great question —") if they are in first person and flow naturally
+
+### Critical rule
+The `semantic_search` tool already generates a first-person answer via Groq. Your job is to **output it, not rewrite it**. Any rephrasing by you (the outer agent) breaks the first-person voice.
 
 ## Environment Variables (.env)
 Stored in `.env` at project root (gitignored). Must contain:
@@ -104,7 +124,7 @@ pnpm dlx shadcn@latest init   # Initialize ShadCN UI (one-time setup)
 Reference: https://ui.shadcn.com/docs/installation/next
 
 ## MCP Client Configuration
-VS Code Agent Mode connects to the MCP server via `mcp.json` in the project root:
+VS Code Agent Mode connects to the MCP server via `.vscode/mcp.json` in the project root:
 ```json
 {
   "servers": {
@@ -118,7 +138,7 @@ VS Code Agent Mode connects to the MCP server via `mcp.json` in the project root
 ```
 **To test locally:**
 1. Start the dev server: `pnpm dev`
-2. VS Code Agent Mode automatically reads `mcp.json` and discovers MCP tools
+2. VS Code Agent Mode automatically reads `.vscode/mcp.json` and discovers MCP tools
 3. The `semantic_search` tool becomes available for the agent to call
 
 ## Upstash Vector Integration
@@ -156,14 +176,7 @@ await index.query({
 
 ---
 
-**Note**: This file provides context for GitHub Copilot to generate accurate, project-specific code suggestions. Keep it updated as requirements evolve.
-
-
-## Contribution by Vishva Patel
-- Reviewed repository setup and added initial notes
-
-
-
+**Note**: This file provides context for GitHub Copilot and Claude Code to generate accurate, project-specific code suggestions. Keep it updated as requirements evolve.
 
 ## ARCHITECTURE (CONCEPTUAL):
 ```
