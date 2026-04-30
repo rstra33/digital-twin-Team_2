@@ -17,11 +17,11 @@ grounded interview responses — never hallucinating or inventing information.
 |---|---|
 | Ranne Sanedrin | [impulsifier](https://github.com/impulsifier) |
 | Remi Strachan | [rstra33](https://github.com/rstra33) |
-| Vishva Patel | [vishva-patel187](https://github.com/vishva-patel187) |
 | Andrea Cuevas | [cuevasandrea676-bit](https://github.com/cuevasandrea676-bit) |
 | Alaine Krizia | [alainekrizia](https://github.com/alainekrizia) |
 | Rabib Islam | [rabib773](https://github.com/rabib773) |
 | Jose Pablo Du | [jsepblo](https://github.com/jsepblo) |
+
 ---
 
 ## Timeline
@@ -66,7 +66,7 @@ The Digital Twin must be able to:
 - The agent must synthesise professional, first-person answers grounded in retrieved data
 - The system must generate a Markdown report with full transcript and hire/no-hire recommendation
 - The agent must read interview rules and behaviour from `agents.md`
-- The system must support multiple job descriptions stored in a `/job-postings` folder
+- The system must support multiple job descriptions stored in a `/jobs` folder
 
 ---
 
@@ -74,6 +74,7 @@ The Digital Twin must be able to:
 - No personal embeddings or API keys stored in the GitHub repository
 - `.env` files must be used locally for all secrets
 - `.gitignore` must prevent sensitive files from being committed
+- `digitaltwin.json` is git-ignored — each member maintains their own local copy
 - All team members must have visible commits and pull requests in GitHub
 - The repository must be public and accessible to assessors
 - The final working version must be on the `main` branch
@@ -87,7 +88,7 @@ The Digital Twin must be able to:
 - [ ] Agent retrieves relevant profile chunks for each question via MCP tool-call
 - [ ] Agent produces complete, grounded answers without manual guidance
 - [ ] Final Markdown report includes transcript and justified hire/no-hire recommendation
-- [ ] All 7 team members have at least one visible commit in the GitHub repository
+- [ ] All 6 team members have at least one visible commit in the GitHub repository
 - [ ] Repository contains README.md, agents.md, and docs/prd.md
 - [ ] No secrets or personal data committed to the repository
 
@@ -99,19 +100,20 @@ The Digital Twin must be able to:
 |---|---|
 | Vector Database | Upstash Vector (built-in embeddings) |
 | LLM Inference | Groq (llama-3.1-8b-instant) |
-| Agent Mode | VS Code Insiders + GitHub Copilot (Claude Sonnet 4.5) |
+| Agent Mode | VS Code Insiders + GitHub Copilot / Claude Code |
 | Tool Calling | MCP (Model Context Protocol) server |
-| Language | Python |
+| Languages | Python 3.11.9 (RAG pipeline) + TypeScript (MCP server) |
+| Package Manager | pnpm |
 
 ---
 
 ## Security & Good Practice
 - `.env` files used locally for all API keys
 - `.gitignore` prevents secrets from being committed
+- `digitaltwin.json` is git-ignored — personal profile data stays local only
 - No personal embeddings or Upstash tokens stored in the repository
 - No classmate personal data stored in the shared repo
 
 ---
 
-*This PRD was created as part of the Week 5 project kickoff and will be updated 
-as the project progresses.*
+*This PRD was created as part of the Week 5 project kickoff and last updated April 30, 2026.*
