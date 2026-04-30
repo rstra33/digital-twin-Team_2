@@ -1,6 +1,6 @@
 # Implementation Plan — Digital Twin RAG Interview Agent
 
-**Status:** Approved | **Version:** 1.2 | **Last Updated:** April 15, 2026
+**Status:** Approved | **Version:** 1.3 | **Last Updated:** April 30, 2026
 
 ---
 
@@ -179,7 +179,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 > **Note:** The agentic LLM generates the final Markdown report autonomously based on instructions in `AGENTS.md`. There is no separate Python report generator. This phase validates that the end-to-end flow produces correct reports.
 
 ### 4.1 End-to-End Interview Validation
-**Owner:** Vishva Patel
+**Owner:** Rabib Islam
 
 - [ ] Run a full interview using VS Code Agent Mode with a sample job description
   - Verify the LLM reads the job description from `job-postings/`
@@ -241,7 +241,7 @@ This document outlines the implementation roadmap for the Digital Twin RAG Inter
 
 - [ ] Conduct team review of entire system
 - [ ] Verify all PRD requirements met
-- [ ] Verify all 7 team members have visible commits on `main`
+- [ ] Verify all 6 team members have visible commits on `main`
 - [ ] Confirm repository is public and accessible to assessors
 - [ ] Final merge to `main` branch
 
@@ -285,14 +285,14 @@ Phase 5 (Week 9)
 |---|---|---|
 | 1.1 Environment Setup | Remi Strachan | Ranne Sanedrin |
 | 1.2 Project Structure | Ranne Sanedrin | Remi Strachan |
-| 1.3 Chunking Pipeline (refactor) | Vishva Patel | Andrea Cuevas |
-| 1.4 Vector DB (refactor) | Andrea Cuevas | Vishva Patel |
+| 1.3 Chunking Pipeline (refactor) | Andrea Cuevas | Ranne Sanedrin |
+| 1.4 Vector DB (refactor) | Andrea Cuevas | Rabib Islam |
 | 2.1 MCP Server | Alaine Krizia | Rabib Islam |
 | 2.2 Search Tool Integration | Alaine Krizia + Andrea Cuevas | – |
 | 2.3 Local Testing | Rabib Islam | Alaine Krizia |
 | 3.1 agents.md Instructions | Jose Pablo Du | Ranne Sanedrin |
 | 3.2 Job Descriptions | Ranne Sanedrin | Jose Pablo Du |
-| 4.1 E2E Interview Validation | Vishva Patel | Rabib Islam |
+| 4.1 E2E Interview Validation | Rabib Islam | Remi Strachan |
 | 5.1 Integration Testing | Rabib Islam | Remi Strachan |
 | 5.2 Documentation | Remi Strachan + All | – |
 | 5.3 Sign-Off | Ranne Sanedrin | Remi Strachan |
@@ -312,7 +312,7 @@ Phase 5 (Week 9)
 - [ ] Agentic LLM (Copilot Agent Mode) generates contextually relevant questions
 - [ ] Answers grounded in retrieved profile data
 - [ ] Final report includes hire/no-hire recommendation with evidence
-- [ ] All 7 team members have visible commits on `main` branch
+- [ ] All 6 team members have visible commits on `main` branch
 
 ### ✅ Documentation
 - [ ] `README.md` enables new team member onboarding in < 30 minutes
@@ -372,6 +372,7 @@ Phase 5 (Week 9)
 |---|---|---|---|
 | 1.0 | AI-Generated | Apr 9, 2026 | Initial implementation plan from design.md |
 | 1.1 | AI-Revised | Apr 9, 2026 | Fixed PRD alignment: removed Python orchestrator/report generator (LLM handles via AGENTS.md), scoped Phase 1.3/1.4 as refactors, added MCP SDK dependency, mapped roles to team members, added git workflow section, aligned timeline to PRD Weeks 5–9, consolidated documentation into README.md, reconciled JSON schema keys |
+| 1.3 | Ranne Sanedrin | Apr 30, 2026 | Removed Vishva Patel from team — reassigned owned tasks to existing members, updated team count from 7 to 6 |
 | 1.2 | Remi Strachan | Apr 15, 2026 | Updated for Next.js MCP server architecture: renamed Section 1.2 from Python to Project Structure, updated MCP server from Python mcp SDK to Next.js API route, added pnpm/Node.js dependencies, updated file references and appendix |
 
 ---
